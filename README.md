@@ -1,0 +1,1 @@
+<h1> Responsive Image Recognition Web App </h1>
