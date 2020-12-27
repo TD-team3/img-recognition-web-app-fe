@@ -29,5 +29,5 @@ The result will be the content inside the image.
 * Slack for our chat asynchronus
 * A Excel sheet used for the daily stand-up asynchronus
 
-
-
+## Deploy
+https://gracious-mcclintock-220460.netlify.app/
