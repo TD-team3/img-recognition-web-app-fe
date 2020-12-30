@@ -1,0 +1,17 @@
+.o-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.o-logo {
+  position: fixed;
+  top: var(--spacing-x4);
+  padding: 0 var(--spacing-x4);
+
+  margin: 0;
+  @media only screen and (min-width: 28.125em) {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
