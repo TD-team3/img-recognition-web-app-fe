@@ -1,1 +1,2 @@
-import './styles.scss';
+ window.Dropzone = require("./js/dropzone")
+import './styles.scss'

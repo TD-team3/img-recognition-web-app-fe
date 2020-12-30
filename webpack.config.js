@@ -66,12 +66,11 @@ module.exports = {
             filename: "index.html", 
             template: path.resolve(__dirname, "src", "index.html")
           }),
-          /*
           new HtmlWebpackPlugin({
-            filename: "drop.html",
-            template: path.resolve(__dirname, "src", "drop.html")
+            filename: "upload-page.html", 
+            template: path.resolve(__dirname, "src", "upload-page.html")
           }),
-          */
+          
         new MiniCssExtractPlugin({
             filename: "style.css"
           }),
