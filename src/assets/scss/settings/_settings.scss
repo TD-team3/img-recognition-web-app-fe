@@ -1,7 +1,7 @@
 :root {
-  --gray-light: #f2f2f2;
-  --gray-dark: #30444e;
-  --gray-darker: #1f2e35;
+  --grey-light: #f2f2f2;
+  --grey-dark: #30444e;
+  --grey-darker: #1f3038;
   --white: #ffffff;
   --black: #000000;
   --red: #ff464f;
@@ -16,6 +16,9 @@
   --spacing-x3: calc(var(--spacing) * 3);
   --spacing-x4: calc(var(--spacing) * 4);
   --spacing-x5: calc(var(--spacing) * 5);
+  --spacing-x6: calc(var(--spacing) * 6);
+  --spacing-x7: calc(var(--spacing) * 7);
+  --spacing-x8: calc(var(--spacing) * 8);
 
   --font-normal: 16px;
   --font-large: calc(var(--font-normal) * 1.5);
