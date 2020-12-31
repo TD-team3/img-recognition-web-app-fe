@@ -1,0 +1,28 @@
+.dropzone {
+  border: 2px dashed var(--green);
+  border-radius: 5px;
+  background: var(--green-darker);
+  margin-top: 0px;
+  margin-bottom: var(--spacing-x4);
+}
+.dropzone .dz-message {
+  font-weight: 400;
+}
+.dropzone .dz-message .note {
+  font-size: 0.8em;
+  font-weight: 200;
+  display: block;
+  margin-top: 1.4rem;
+}
+
+@media only screen and (max-width: 375px) {
+  .dropzone .dz-message {
+    font-weight: 400;
+  }
+  .dropzone .dz-message .note {
+    font-size: 0.8em;
+    font-weight: 200;
+    display: block;
+    margin-top: 1.4rem;
+  }
+}
