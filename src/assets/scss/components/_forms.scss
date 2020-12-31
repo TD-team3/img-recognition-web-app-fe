@@ -1,7 +1,9 @@
 .c-form {
+  width: 100%;
   &__wrapper {
     max-width: 100%;
-
+    width: 100%;
+    margin: 0 auto;
     padding: 0 var(--spacing-x4);
     @media only screen and (min-width: 28.125em) {
       max-width: 370px;
@@ -41,6 +43,13 @@
     &:focus {
       border-bottom: 2px solid #c0c0c0;
       outline: none;
+    }
+  }
+  &--upload {
+    .c-form__wrapper {
+      @media only screen and (min-width: 28.125em) {
+        max-width: 768px;
+      }
     }
   }
 }

@@ -1,3 +1,4 @@
+window.Dropzone = require("./js/dropzone");
 import "./styles.scss";
 
 var $ = document.querySelector.bind(document);
