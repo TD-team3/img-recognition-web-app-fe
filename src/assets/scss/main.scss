@@ -1,0 +1,38 @@
+/* ↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧↧
+This is project follows the Inverted Triangle CSS (ITCSS)
+organizational structure created by Harry Roberts.
+The organization is from low to high specifity
+and aims to create more scalable, modular, and structured css
+The inverted triangle:
+                   ________________
+    Settings       |______________|       Least Specific
+       Tools        |____________|
+     Generic         |__________|              |
+    Elements          |________|               |
+     Objects           |______|                |
+  Components            |____|
+      Trumps             |__|             Most Specific
+Settings ---- Global variables, config switches.
+Tools ------- Default mixins and functions.
+Generic ----- Ground-zero styles (Normalize.css, resets, box-sizing).
+Elements ---- Unclassed HTML elements (type selectors).
+Objects ----- Cosmetic-free design patterns.
+Components -- Designed components, chunks of UI.
+Trumps ------ Helpers and overrides.
+↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥↥ */
+
+@import "./settings/settings";
+
+@import "./generic/normalize";
+
+@import "./elements/typography";
+@import "./elements/generic";
+
+@import "./objects/layout";
+@import "./objects/lists";
+
+@import "./components/buttons";
+@import "./components/forms";
+@import "./components/modals";
+
+@import "./trumps/utilities";

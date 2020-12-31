@@ -1,0 +1,16 @@
+.c-button {
+  border-radius: var(--spacing-x2);
+  padding: var(--spacing-x3);
+  border: 0;
+  color: var(--white);
+  font-weight: bold;
+  width: 100%;
+  cursor: pointer;
+  margin-bottom: var(--spacing-x2);
+  &--danger {
+    background-color: var(--red);
+  }
+  &--success {
+    background-color: var(--green);
+  }
+}
