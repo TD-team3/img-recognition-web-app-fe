@@ -1,11 +1,10 @@
 body {
-    background-color: var(--grey-darker);
-    min-height: 100vh;
-    display: flex;
-    font-family: 'Source Sans Pro', sans-serif;
+  background-color: var(--grey-darker);
+  min-height: 100vh;
+  display: flex;
+  font-family: Source Sans Pro;
 }
-
 img {
-    max-width: 100%;
-    display: block;
+  max-width: 100%;
+  display: block;
 }

@@ -1,13 +1,16 @@
 .c-button {
-    background: #3fdb9c;
-    border: none;
-    border-radius: 0.6em;
-    color: #fff;
-    cursor: pointer;
-    height: 50px;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 1em;
-    font-weight: bold;
-    text-align: center;
-    width: 100%;
+  border-radius: var(--spacing-x2);
+  padding: var(--spacing-x3);
+  border: 0;
+  color: var(--white);
+  font-weight: bold;
+  width: 100%;
+  cursor: pointer;
+  margin-bottom: var(--spacing-x2);
+  &--danger {
+    background-color: var(--red);
+  }
+  &--success {
+    background-color: var(--green);
+  }
 }

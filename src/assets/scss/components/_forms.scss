@@ -1,48 +1,58 @@
 .c-form {
-    &__wrapper {
-        max-width: 100%;
-        padding: 0 var(--spacing-x4);
-        @media only screen and (min-width: 28.125em) {
-            max-width: 370px;
-        }
+  width: 100%;
+  &__wrapper {
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--spacing-x4);
+    @media only screen and (min-width: 28.125em) {
+      max-width: 370px;
     }
-    &__logo {
-        width: 90%;
-        text-align: center;
-        margin-left: 1em;
-    }
-    &__item {
-        margin-bottom: var(--spacing-x4);
-        width: 100%;
-        display: flex;
-    }
-    &__icon__container {
-        width: 3em;
-        height: 3em;
-        border-radius: 0.75em;
-    }
-    &__icon {
-        padding: 1em;
-        max-width: none;
-    }
-    &__item input {
-        background: #1f3038;
-        border: none;
-        color: #96a7af;
-        font-family: 'Source Sans Pro', sans-serif;
-        font-size: 1em;
-        padding-left: 1em;
-        position: relative;
-        transition: border-color 0.3s;
-        width: 100%;
-        border-bottom: 0.1em solid #1d2e35;
-        &:focus {
-            border-bottom: 2px solid #c0c0c0;
-            outline: none;
-        }
-    }
-}
+  }
+  &__logo {
+    width: 90%;
+    text-align: center;
+    margin-left: 1em;
+  }
+  &__item {
+    margin-bottom: var(--spacing-x4);
+    width: 100%;
+    display: flex;
+  }
+  &__icon__container {
+    width: 3em;
+    height: 3em;
+    border-radius: 0.75em;
+  }
+  &__icon {
+    padding: 1em;
+    max-width: none;
+  }
+  &__item input {
+    background: #1f3038;
+    border: none;
+    color: #96a7af;
+    font-family: Source Sans Pro;
+    font-size: 1em;
+    padding-left: 1em;
+    position: relative;
+    transition: border-color 0.3s;
+    width: 100%;
+    border-bottom: 0.1em solid #1d2e35;
 
+    &:focus {
+      border-bottom: 2px solid #c0c0c0;
+      outline: none;
+    }
+  }
+  &--upload {
+    .c-form__wrapper {
+      @media only screen and (min-width: 28.125em) {
+        max-width: 768px;
+      }
+    }
+  }
+}
 
 /*@media only screen and (min-width: 28.125em) {
   .form__wrapper {
@@ -53,4 +63,8 @@
     box-shadow: 0 0.7em 1em 0em rgb(44, 42, 42);
     border-radius: 1em;
   }
+<<<<<<< HEAD
 }*/
+=======
+}*/
+>>>>>>> master
