@@ -44,7 +44,8 @@
       href="https://gracious-mcclintock-220460.netlify.app/"
     />
   </head>
-  <body id="root">
+
+  <body>
     <figure class="o-logo">
       <img src="./assets/images/logo.svg" alt="" />
     </figure>
@@ -64,12 +65,13 @@
                 <img
                   class="c-form__icon"
                   src="./assets/images/usernameIcon.svg"
-                  alt=""
+                  alt="username icon"
                 />
               </div>
               <label for="email"></label>
               <input
-                type="email"
+                id="user"
+                type="username"
                 name="email"
                 required="required"
                 placeholder="Username"
@@ -85,6 +87,7 @@
               </div>
               <label for="password"></label>
               <input
+                id="pass"
                 type="password"
                 name="password"
                 required="required"
@@ -92,6 +95,7 @@
               />
             </div>
             <button
+              id="submitButton"
               type="submit"
               class="c-button c-button--success"
               form="form1"
@@ -104,10 +108,7 @@
       </div>
       <div class="c-modal c-modal--bottom c-modal--danger" id="js-modalError">
         <div class="c-modal__content">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate,
-          alias minima ducimus ad harum iusto et odit dolorem maxime totam
-          commodi impedit delectus. Excepturi cupiditate suscipit eius, animi
-          consectetur architecto.
+          I dati inseriti sono errati, rincontrollali!
         </div>
       </div>
       <div
