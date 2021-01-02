@@ -41,11 +41,22 @@
             id="myawesomedropzone"
             enctype="multipart/form-data"
           ></form>
-          <button type="submit" class="c-button c-button--success" id="js-upload">
+          <button
+            type="submit"
+            class="c-button c-button--success"
+            id="js-upload"
+          >
             Upload
           </button>
           <p class="text-white text-center">No more than 10 images allowed</p>
         </div>
+      </div>
+      <div
+        class="c-modal c-modal--bottom c-modal--success text-center"
+        id="js-modalResult"
+      >
+        <div class="c-modal__title">Results:</div>
+        <div class="c-modal__content" id="js-modalResultContent"></div>
       </div>
     </section>
   </body>

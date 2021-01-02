@@ -1,17 +1,35 @@
-(function() {
-  var Dropzone, Emitter, camelize, contentLoaded, detectVerticalSquash, drawImageIOSFix, noop, without,
+(function () {
+  var Dropzone,
+    Emitter,
+    camelize,
+    contentLoaded,
+    detectVerticalSquash,
+    drawImageIOSFix,
+    noop,
+    without,
     __slice = [].slice,
     __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+    __extends = function (child, parent) {
+      for (var key in parent) {
+        if (__hasProp.call(parent, key)) child[key] = parent[key];
+      }
+      function ctor() {
+        this.constructor = child;
+      }
+      ctor.prototype = parent.prototype;
+      child.prototype = new ctor();
+      child.__super__ = parent.prototype;
+      return child;
+    };
 
-  noop = function() {};
+  noop = function () {};
 
-  Emitter = (function() {
+  Emitter = (function () {
     function Emitter() {}
 
     Emitter.prototype.addEventListener = Emitter.prototype.on;
 
-    Emitter.prototype.on = function(event, fn) {
+    Emitter.prototype.on = function (event, fn) {
       this._callbacks = this._callbacks || {};
       if (!this._callbacks[event]) {
         this._callbacks[event] = [];
@@ -20,9 +38,10 @@
       return this;
     };
 
-    Emitter.prototype.emit = function() {
+    Emitter.prototype.emit = function () {
       var args, callback, callbacks, event, _i, _len;
-      event = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      (event = arguments[0]),
+        (args = 2 <= arguments.length ? __slice.call(arguments, 1) : []);
       this._callbacks = this._callbacks || {};
       callbacks = this._callbacks[event];
       if (callbacks) {
@@ -40,7 +59,7 @@
 
     Emitter.prototype.removeEventListener = Emitter.prototype.off;
 
-    Emitter.prototype.off = function(event, fn) {
+    Emitter.prototype.off = function (event, fn) {
       var callback, callbacks, i, _i, _len;
       if (!this._callbacks || arguments.length === 0) {
         this._callbacks = {};
@@ -65,19 +84,17 @@
     };
 
     return Emitter;
-
   })();
 
-  Dropzone = (function(_super) {
+  Dropzone = (function (_super) {
     var extend, resolveOption;
 
     __extends(Dropzone, _super);
 
     Dropzone.prototype.Emitter = Emitter;
 
-
     // form data for photo
-    var globFormData = new FormData()
+    var globFormData = new FormData();
 
     /*
     This is a list of all available events you can register on a dropzone object.
@@ -87,15 +104,44 @@
         dropzone.on("dragEnter", function() { });
      */
 
-    Dropzone.prototype.events = ["drop", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "addedfiles", "removedfile", "thumbnail", "error", "errormultiple", "processing", "processingmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached", "queuecomplete"];
+    Dropzone.prototype.events = [
+      "drop",
+      "dragstart",
+      "dragend",
+      "dragenter",
+      "dragover",
+      "dragleave",
+      "addedfile",
+      "addedfiles",
+      "removedfile",
+      "thumbnail",
+      "error",
+      "errormultiple",
+      "processing",
+      "processingmultiple",
+      "uploadprogress",
+      "totaluploadprogress",
+      "sending",
+      "sendingmultiple",
+      "success",
+      "successmultiple",
+      "canceled",
+      "canceledmultiple",
+      "complete",
+      "completemultiple",
+      "reset",
+      "maxfilesexceeded",
+      "maxfilesreached",
+      "queuecomplete",
+    ];
 
     Dropzone.prototype.defaultOptions = {
       url: "https://imgrecognitionteam3.pythonanywhere.com/upload/",
       method: "post",
-      withCredentials: false,    
+      withCredentials: false,
       headers: {
         "Cache-Control": "",
-      },  
+      },
       parallelUploads: 5,
       uploadMultiple: true,
       maxFilesize: 256,
@@ -109,70 +155,78 @@
       params: {},
       clickable: true,
       ignoreHiddenFiles: true,
-      acceptedFiles: '.png, .jpg',
+      acceptedFiles: ".png, .jpg",
       acceptedMimeTypes: null,
       autoProcessQueue: false,
       autoQueue: true,
       addRemoveLinks: true,
       previewsContainer: null,
       capture: null,
-      dictDefaultMessage: "Drop files here to upload or click to select them",
-      dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
-      dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
-      dictFileTooBig: "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
+      dictDefaultMessage:
+        "<svg width='80' height='80' viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M66.9779 6.66668C66.9779 6.07731 66.7437 5.51208 66.327 5.09533C65.9102 4.67858 65.345 4.44446 64.7556 4.44446H15.8668C15.2774 4.44446 14.7122 4.67858 14.2954 5.09533C13.8787 5.51208 13.6445 6.07731 13.6445 6.66668V8.8889H66.9779V6.66668Z' fill='#25C685'/><path d='M71.378 15.5556C71.378 14.9662 71.1439 14.401 70.7271 13.9842C70.3104 13.5675 69.7451 13.3334 69.1558 13.3334H11.378C10.7886 13.3334 10.2234 13.5675 9.80664 13.9842C9.38989 14.401 9.15576 14.9662 9.15576 15.5556V17.7778H71.378V15.5556Z' fill='#25C685'/><path d='M71.3777 22.2223H8.62211C7.5141 22.2223 6.45146 22.6624 5.66798 23.4459C4.88449 24.2294 4.44434 25.2921 4.44434 26.4001V66.9334C4.44434 68.0414 4.88449 69.104 5.66798 69.8875C6.45146 70.671 7.5141 71.1112 8.62211 71.1112H71.3777C72.4857 71.1112 73.5483 70.671 74.3318 69.8875C75.1153 69.104 75.5554 68.0414 75.5554 66.9334V26.4001C75.5554 25.2921 75.1153 24.2294 74.3318 23.4459C73.5483 22.6624 72.4857 22.2223 71.3777 22.2223ZM19.0221 29.889C20.3407 29.889 21.6296 30.2799 22.7259 31.0125C23.8222 31.745 24.6767 32.7862 25.1813 34.0044C25.6859 35.2226 25.8179 36.563 25.5607 37.8562C25.3034 39.1494 24.6685 40.3373 23.7362 41.2697C22.8038 42.202 21.6159 42.837 20.3227 43.0942C19.0295 43.3514 17.6891 43.2194 16.4709 42.7148C15.2527 42.2102 14.2115 41.3558 13.479 40.2594C12.7464 39.1631 12.3554 37.8742 12.3554 36.5556C12.3554 34.7875 13.0578 33.0918 14.3081 31.8416C15.5583 30.5913 17.254 29.889 19.0221 29.889ZM66.6666 62.2223H13.3332L29.911 45.6223C30.2065 45.3292 30.6059 45.1647 31.0221 45.1647C31.4383 45.1647 31.8377 45.3292 32.1332 45.6223L40.311 53.8001L51.5777 42.2223C51.8732 41.9292 52.2725 41.7647 52.6888 41.7647C53.105 41.7647 53.5044 41.9292 53.7999 42.2223L66.6666 55.089V62.2223Z' fill='#25C685'/></svg>",
+      dictFallbackMessage:
+        "Your browser does not support drag'n'drop file uploads.",
+      dictFallbackText:
+        "Please use the fallback form below to upload your files like in the olden days.",
+      dictFileTooBig:
+        "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
       dictInvalidFileType: "You can't upload files of this type.",
       dictResponseError: "Server responded with {{statusCode}} code.",
       dictCancelUpload: "Cancel upload",
-      dictCancelUploadConfirmation: "Are you sure you want to cancel this upload?",
+      dictCancelUploadConfirmation:
+        "Are you sure you want to cancel this upload?",
       dictRemoveFile: "Remove file",
       dictRemoveFileConfirmation: null,
       dictMaxFilesExceeded: "You can not upload any more files.",
-      accept: function(file, done) {
+      accept: function (file, done) {
         return done();
       },
-      init: function() {
+      init: function () {
         var myDropzone = Dropzone.forElement(".dropzone");
-        
-        this.on("addedfile", function(file) 
-        { 
-            globFormData.append("photos", file);
+
+        this.on("addedfile", function (file) {
+          globFormData.append("photos", file);
         });
 
-        console.log(myDropzone)
+        console.log(myDropzone);
         /* 'submit-dropzone-btn' is the ID of the form submit button */
-            document.getElementById('js-upload').addEventListener("click", function (e) 
-            {
+        document
+          .getElementById("js-upload")
+          .addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
             myDropzone.processQueue();
-            console.log("btn pressed")
+            console.log("btn pressed");
+          });
 
-        
-        });
-        
-
-        this.on('sending', function(file, xhr, formData) 
-        {
+        this.on("sending", function (file, xhr, formData) {
           // ad photo to form data
-           for(var pair of globFormData.entries()) 
-           {
-             formData.append(pair[0],pair[1])
-          } 
+          for (var pair of globFormData.entries()) {
+            formData.append(pair[0], pair[1]);
+          }
 
           //qui va inserito username e token dal sess. storage
-           formData.append("data", "{\"username\":\"TDteam3\",\"token\":\"YFxhfq5|mfuixgs?=020121143243\"}"); 
-        });
-        
 
-       /* this.on("sendingmultiple", function(data, xhr, formData) {
+          formData.append(
+            "data",
+            '{"username":"' +
+              sessionStorage.getItem("username") +
+              '","token":"' +
+              sessionStorage.getItem("token") +
+              '"}'
+          );
+        });
+
+        /* this.on("sendingmultiple", function(data, xhr, formData) {
       });*/
 
         return noop;
       },
       forceFallback: false,
-      fallback: function() {
+      fallback: function () {
         var child, messageElement, span, _i, _len, _ref;
-        this.element.className = "" + this.element.className + " dz-browser-not-supported";
+        this.element.className =
+          "" + this.element.className + " dz-browser-not-supported";
         _ref = this.element.getElementsByTagName("div");
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           child = _ref[_i];
@@ -183,7 +237,9 @@
           }
         }
         if (!messageElement) {
-          messageElement = Dropzone.createElement("<div class=\"dz-message\"><span></span></div>");
+          messageElement = Dropzone.createElement(
+            '<div class="dz-message"><span></span></div>'
+          );
           this.element.appendChild(messageElement);
         }
         span = messageElement.getElementsByTagName("span")[0];
@@ -196,18 +252,18 @@
         }
         return this.element.appendChild(this.getFallbackForm());
       },
-      resize: function(file) {
+      resize: function (file) {
         var info, srcRatio, trgRatio;
         info = {
           srcX: 0,
           srcY: 0,
           srcWidth: file.width,
-          srcHeight: file.height
+          srcHeight: file.height,
         };
         srcRatio = file.width / file.height;
         info.optWidth = this.options.thumbnailWidth;
         info.optHeight = this.options.thumbnailHeight;
-        if ((info.optWidth == null) && (info.optHeight == null)) {
+        if (info.optWidth == null && info.optHeight == null) {
           info.optWidth = info.srcWidth;
           info.optHeight = info.srcHeight;
         } else if (info.optWidth == null) {
@@ -241,33 +297,47 @@
       want to add an additional event handler, register it on the dropzone object
       and don't overwrite those options.
        */
-      drop: function(e) {
+      drop: function (e) {
         return this.element.classList.remove("dz-drag-hover");
       },
       dragstart: noop,
-      dragend: function(e) {
+      dragend: function (e) {
         return this.element.classList.remove("dz-drag-hover");
       },
-      dragenter: function(e) {
+      dragenter: function (e) {
         return this.element.classList.add("dz-drag-hover");
       },
-      dragover: function(e) {
+      dragover: function (e) {
         return this.element.classList.add("dz-drag-hover");
       },
-      dragleave: function(e) {
+      dragleave: function (e) {
         return this.element.classList.remove("dz-drag-hover");
       },
       paste: noop,
-      reset: function() {
+      reset: function () {
         return this.element.classList.remove("dz-started");
       },
-      addedfile: function(file) {
-        var node, removeFileEvent, removeLink, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _results;
+      addedfile: function (file) {
+        var node,
+          removeFileEvent,
+          removeLink,
+          _i,
+          _j,
+          _k,
+          _len,
+          _len1,
+          _len2,
+          _ref,
+          _ref1,
+          _ref2,
+          _results;
         if (this.element === this.previewsContainer) {
           this.element.classList.add("dz-started");
         }
         if (this.previewsContainer) {
-          file.previewElement = Dropzone.createElement(this.options.previewTemplate.trim());
+          file.previewElement = Dropzone.createElement(
+            this.options.previewTemplate.trim()
+          );
           file.previewTemplate = file.previewElement;
           this.previewsContainer.appendChild(file.previewElement);
           _ref = file.previewElement.querySelectorAll("[data-dz-name]");
@@ -281,22 +351,32 @@
             node.innerHTML = this.filesize(file.size);
           }
           if (this.options.addRemoveLinks) {
-            file._removeLink = Dropzone.createElement("<a class=\"dz-remove\" href=\"javascript:undefined;\" data-dz-remove>" + this.options.dictRemoveFile + "</a>");
+            file._removeLink = Dropzone.createElement(
+              '<a class="dz-remove" href="javascript:undefined;" data-dz-remove>' +
+                this.options.dictRemoveFile +
+                "</a>"
+            );
             file.previewElement.appendChild(file._removeLink);
           }
-          removeFileEvent = (function(_this) {
-            return function(e) {
+          removeFileEvent = (function (_this) {
+            return function (e) {
               e.preventDefault();
               e.stopPropagation();
               if (file.status === Dropzone.UPLOADING) {
-                return Dropzone.confirm(_this.options.dictCancelUploadConfirmation, function() {
-                  return _this.removeFile(file);
-                });
+                return Dropzone.confirm(
+                  _this.options.dictCancelUploadConfirmation,
+                  function () {
+                    return _this.removeFile(file);
+                  }
+                );
               } else {
                 if (_this.options.dictRemoveFileConfirmation) {
-                  return Dropzone.confirm(_this.options.dictRemoveFileConfirmation, function() {
-                    return _this.removeFile(file);
-                  });
+                  return Dropzone.confirm(
+                    _this.options.dictRemoveFileConfirmation,
+                    function () {
+                      return _this.removeFile(file);
+                    }
+                  );
                 } else {
                   return _this.removeFile(file);
                 }
@@ -307,12 +387,14 @@
           _results = [];
           for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
             removeLink = _ref2[_k];
-            _results.push(removeLink.addEventListener("click", removeFileEvent));
+            _results.push(
+              removeLink.addEventListener("click", removeFileEvent)
+            );
           }
           return _results;
         }
       },
-      removedfile: function(file) {
+      removedfile: function (file) {
         var _ref;
         if (file.previewElement) {
           if ((_ref = file.previewElement) != null) {
@@ -321,7 +403,7 @@
         }
         return this._updateMaxFilesReachedClass();
       },
-      thumbnail: function(file, dataUrl) {
+      thumbnail: function (file, dataUrl) {
         var thumbnailElement, _i, _len, _ref;
         if (file.previewElement) {
           file.previewElement.classList.remove("dz-file-preview");
@@ -331,14 +413,17 @@
             thumbnailElement.alt = file.name;
             thumbnailElement.src = dataUrl;
           }
-          return setTimeout(((function(_this) {
-            return function() {
-              return file.previewElement.classList.add("dz-image-preview");
-            };
-          })(this)), 1);
+          return setTimeout(
+            (function (_this) {
+              return function () {
+                return file.previewElement.classList.add("dz-image-preview");
+              };
+            })(this),
+            1
+          );
         }
       },
-      error: function(file, message) {
+      error: function (file, message) {
         var node, _i, _len, _ref, _results;
         if (file.previewElement) {
           file.previewElement.classList.add("dz-error");
@@ -349,32 +434,34 @@
           _results = [];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             node = _ref[_i];
-            _results.push(node.textContent = message);
+            _results.push((node.textContent = message));
           }
           return _results;
         }
       },
       errormultiple: noop,
-      processing: function(file) {
+      processing: function (file) {
         if (file.previewElement) {
           file.previewElement.classList.add("dz-processing");
           if (file._removeLink) {
-            return file._removeLink.textContent = this.options.dictCancelUpload;
+            return (file._removeLink.textContent = this.options.dictCancelUpload);
           }
         }
       },
       processingmultiple: noop,
-      uploadprogress: function(file, progress, bytesSent) {
+      uploadprogress: function (file, progress, bytesSent) {
         var node, _i, _len, _ref, _results;
         if (file.previewElement) {
-          _ref = file.previewElement.querySelectorAll("[data-dz-uploadprogress]");
+          _ref = file.previewElement.querySelectorAll(
+            "[data-dz-uploadprogress]"
+          );
           _results = [];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             node = _ref[_i];
-            if (node.nodeName === 'PROGRESS') {
-              _results.push(node.value = progress);
+            if (node.nodeName === "PROGRESS") {
+              _results.push((node.value = progress));
             } else {
-              _results.push(node.style.width = "" + progress + "%");
+              _results.push((node.style.width = "" + progress + "%"));
             }
           }
           return _results;
@@ -383,17 +470,30 @@
       totaluploadprogress: noop,
       sending: noop,
       sendingmultiple: noop,
-      success: function(file) {
+      success: function (file, response) {
+        console.log(response);
+        let result =
+          "<ul class='o-list-unstyled'>" +
+          "<li>" +
+          response +
+          "</li>" +
+          "</ul>";
+        document.getElementById("js-modalResultContent").innerHTML = result;
+
+        document
+          .getElementById("js-modalResult")
+          .classList.add("c-modal--open");
+
         if (file.previewElement) {
           return file.previewElement.classList.add("dz-success");
         }
       },
       successmultiple: noop,
-      canceled: function(file) {
+      canceled: function (file) {
         return this.emit("error", file, "Upload canceled.");
       },
       canceledmultiple: noop,
-      complete: function(file) {
+      complete: function (file, response) {
         if (file._removeLink) {
           file._removeLink.textContent = this.options.dictRemoveFile;
         }
@@ -406,12 +506,14 @@
       maxfilesreached: noop,
       queuecomplete: noop,
       addedfiles: noop,
-      previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><img data-dz-thumbnail /></div>\n  <div class=\"dz-details\">\n    <div class=\"dz-size\"><span data-dz-size></span></div>\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  <div class=\"dz-success-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Check</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <path d=\"M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" stroke-opacity=\"0.198794158\" stroke=\"#747474\" fill-opacity=\"0.816519475\" fill=\"#FFFFFF\" sketch:type=\"MSShapeGroup\"></path>\n      </g>\n    </svg>\n  </div>\n  <div class=\"dz-error-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Error</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <g id=\"Check-+-Oval-2\" sketch:type=\"MSLayerGroup\" stroke=\"#747474\" stroke-opacity=\"0.198794158\" fill=\"#FFFFFF\" fill-opacity=\"0.816519475\">\n          <path d=\"M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" sketch:type=\"MSShapeGroup\"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>"
+      previewTemplate:
+        '<div class="dz-preview dz-file-preview">\n  <div class="dz-image"><img data-dz-thumbnail /></div>\n  <div class="dz-details">\n    <div class="dz-size"><span data-dz-size></span></div>\n    <div class="dz-filename"><span data-dz-name></span></div>\n  </div>\n  <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>\n  <div class="dz-error-message"><span data-dz-errormessage></span></div>\n  <div class="dz-success-mark">\n    <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">\n      <title>Check</title>\n      <defs></defs>\n      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">\n        <path d="M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z" id="Oval-2" stroke-opacity="0.198794158" stroke="#747474" fill-opacity="0.816519475" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>\n      </g>\n    </svg>\n  </div>\n  <div class="dz-error-mark">\n    <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">\n      <title>Error</title>\n      <defs></defs>\n      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">\n        <g id="Check-+-Oval-2" sketch:type="MSLayerGroup" stroke="#747474" stroke-opacity="0.198794158" fill="#FFFFFF" fill-opacity="0.816519475">\n          <path d="M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z" id="Oval-2" sketch:type="MSShapeGroup"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>',
     };
 
-    extend = function() {
+    extend = function () {
       var key, object, objects, target, val, _i, _len;
-      target = arguments[0], objects = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      (target = arguments[0]),
+        (objects = 2 <= arguments.length ? __slice.call(arguments, 1) : []);
       for (_i = 0, _len = objects.length; _i < _len; _i++) {
         object = objects[_i];
         for (key in object) {
@@ -426,14 +528,17 @@
       var elementOptions, fallback, _ref;
       this.element = element;
       this.version = Dropzone.version;
-      this.defaultOptions.previewTemplate = this.defaultOptions.previewTemplate.replace(/\n*/g, "");
+      this.defaultOptions.previewTemplate = this.defaultOptions.previewTemplate.replace(
+        /\n*/g,
+        ""
+      );
       this.clickableElements = [];
       this.listeners = [];
       this.files = [];
       if (typeof this.element === "string") {
         this.element = document.querySelector(this.element);
       }
-      if (!(this.element && (this.element.nodeType != null))) {
+      if (!(this.element && this.element.nodeType != null)) {
         throw new Error("Invalid dropzone element.");
       }
       if (this.element.dropzone) {
@@ -441,8 +546,14 @@
       }
       Dropzone.instances.push(this);
       this.element.dropzone = this;
-      elementOptions = (_ref = Dropzone.optionsForElement(this.element)) != null ? _ref : {};
-      this.options = extend({}, this.defaultOptions, elementOptions, options != null ? options : {});
+      elementOptions =
+        (_ref = Dropzone.optionsForElement(this.element)) != null ? _ref : {};
+      this.options = extend(
+        {},
+        this.defaultOptions,
+        elementOptions,
+        options != null ? options : {}
+      );
       if (this.options.forceFallback || !Dropzone.isBrowserSupported()) {
         return this.options.fallback.call(this);
       }
@@ -453,7 +564,9 @@
         throw new Error("No URL provided.");
       }
       if (this.options.acceptedFiles && this.options.acceptedMimeTypes) {
-        throw new Error("You can't provide both 'acceptedFiles' and 'acceptedMimeTypes'. 'acceptedMimeTypes' is deprecated.");
+        throw new Error(
+          "You can't provide both 'acceptedFiles' and 'acceptedMimeTypes'. 'acceptedMimeTypes' is deprecated."
+        );
       }
       if (this.options.acceptedMimeTypes) {
         this.options.acceptedFiles = this.options.acceptedMimeTypes;
@@ -465,7 +578,10 @@
       }
       if (this.options.previewsContainer !== false) {
         if (this.options.previewsContainer) {
-          this.previewsContainer = Dropzone.getElement(this.options.previewsContainer, "previewsContainer");
+          this.previewsContainer = Dropzone.getElement(
+            this.options.previewsContainer,
+            "previewsContainer"
+          );
         } else {
           this.previewsContainer = this.element;
         }
@@ -474,13 +590,16 @@
         if (this.options.clickable === true) {
           this.clickableElements = [this.element];
         } else {
-          this.clickableElements = Dropzone.getElements(this.options.clickable, "clickable");
+          this.clickableElements = Dropzone.getElements(
+            this.options.clickable,
+            "clickable"
+          );
         }
       }
       this.init();
     }
 
-    Dropzone.prototype.getAcceptedFiles = function() {
+    Dropzone.prototype.getAcceptedFiles = function () {
       var file, _i, _len, _ref, _results;
       _ref = this.files;
       _results = [];
@@ -493,7 +612,7 @@
       return _results;
     };
 
-    Dropzone.prototype.getRejectedFiles = function() {
+    Dropzone.prototype.getRejectedFiles = function () {
       var file, _i, _len, _ref, _results;
       _ref = this.files;
       _results = [];
@@ -506,7 +625,7 @@
       return _results;
     };
 
-    Dropzone.prototype.getFilesWithStatus = function(status) {
+    Dropzone.prototype.getFilesWithStatus = function (status) {
       var file, _i, _len, _ref, _results;
       _ref = this.files;
       _results = [];
@@ -519,56 +638,74 @@
       return _results;
     };
 
-    Dropzone.prototype.getQueuedFiles = function() {
+    Dropzone.prototype.getQueuedFiles = function () {
       return this.getFilesWithStatus(Dropzone.QUEUED);
     };
 
-    Dropzone.prototype.getUploadingFiles = function() {
+    Dropzone.prototype.getUploadingFiles = function () {
       return this.getFilesWithStatus(Dropzone.UPLOADING);
     };
 
-    Dropzone.prototype.getAddedFiles = function() {
+    Dropzone.prototype.getAddedFiles = function () {
       return this.getFilesWithStatus(Dropzone.ADDED);
     };
 
-    Dropzone.prototype.getActiveFiles = function() {
+    Dropzone.prototype.getActiveFiles = function () {
       var file, _i, _len, _ref, _results;
       _ref = this.files;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         file = _ref[_i];
-        if (file.status === Dropzone.UPLOADING || file.status === Dropzone.QUEUED) {
+        if (
+          file.status === Dropzone.UPLOADING ||
+          file.status === Dropzone.QUEUED
+        ) {
           _results.push(file);
         }
       }
       return _results;
     };
 
-    Dropzone.prototype.init = function() {
+    Dropzone.prototype.init = function () {
       var eventName, noPropagation, setupHiddenFileInput, _i, _len, _ref, _ref1;
       if (this.element.tagName === "form") {
         this.element.setAttribute("enctype", "multipart/form-data");
       }
-      if (this.element.classList.contains("dropzone") && !this.element.querySelector(".dz-message")) {
-        this.element.appendChild(Dropzone.createElement("<div class=\"dz-default dz-message\"><span>" + this.options.dictDefaultMessage + "</span></div>"));
+      if (
+        this.element.classList.contains("dropzone") &&
+        !this.element.querySelector(".dz-message")
+      ) {
+        this.element.appendChild(
+          Dropzone.createElement(
+            '<div class="dz-default dz-message"><span>' +
+              this.options.dictDefaultMessage +
+              "</span></div>"
+          )
+        );
       }
       if (this.clickableElements.length) {
-        setupHiddenFileInput = (function(_this) {
-          return function() {
+        setupHiddenFileInput = (function (_this) {
+          return function () {
             if (_this.hiddenFileInput) {
               document.body.removeChild(_this.hiddenFileInput);
             }
             _this.hiddenFileInput = document.createElement("input");
             _this.hiddenFileInput.setAttribute("type", "file");
-            if ((_this.options.maxFiles == null) || _this.options.maxFiles > 1) {
+            if (_this.options.maxFiles == null || _this.options.maxFiles > 1) {
               _this.hiddenFileInput.setAttribute("multiple", "multiple");
             }
             _this.hiddenFileInput.className = "dz-hidden-input";
             if (_this.options.acceptedFiles != null) {
-              _this.hiddenFileInput.setAttribute("accept", _this.options.acceptedFiles);
+              _this.hiddenFileInput.setAttribute(
+                "accept",
+                _this.options.acceptedFiles
+              );
             }
             if (_this.options.capture != null) {
-              _this.hiddenFileInput.setAttribute("capture", _this.options.capture);
+              _this.hiddenFileInput.setAttribute(
+                "capture",
+                _this.options.capture
+              );
             }
             _this.hiddenFileInput.style.visibility = "hidden";
             _this.hiddenFileInput.style.position = "absolute";
@@ -577,18 +714,21 @@
             _this.hiddenFileInput.style.height = "0";
             _this.hiddenFileInput.style.width = "0";
             document.body.appendChild(_this.hiddenFileInput);
-            return _this.hiddenFileInput.addEventListener("change", function() {
-              var file, files, _i, _len;
-              files = _this.hiddenFileInput.files;
-              if (files.length) {
-                for (_i = 0, _len = files.length; _i < _len; _i++) {
-                  file = files[_i];
-                  _this.addFile(file);
+            return _this.hiddenFileInput.addEventListener(
+              "change",
+              function () {
+                var file, files, _i, _len;
+                files = _this.hiddenFileInput.files;
+                if (files.length) {
+                  for (_i = 0, _len = files.length; _i < _len; _i++) {
+                    file = files[_i];
+                    _this.addFile(file);
+                  }
                 }
+                _this.emit("addedfiles", files);
+                return setupHiddenFileInput();
               }
-              _this.emit("addedfiles", files);
-              return setupHiddenFileInput();
-            });
+            );
           };
         })(this);
         setupHiddenFileInput();
@@ -599,103 +739,129 @@
         eventName = _ref1[_i];
         this.on(eventName, this.options[eventName]);
       }
-      this.on("uploadprogress", (function(_this) {
-        return function() {
-          return _this.updateTotalUploadProgress();
-        };
-      })(this));
-      this.on("removedfile", (function(_this) {
-        return function() {
-          return _this.updateTotalUploadProgress();
-        };
-      })(this));
-      this.on("canceled", (function(_this) {
-        return function(file) {
-          return _this.emit("complete", file);
-        };
-      })(this));
-      this.on("complete", (function(_this) {
-        return function(file) {
-          if (_this.getAddedFiles().length === 0 && _this.getUploadingFiles().length === 0 && _this.getQueuedFiles().length === 0) {
-            return setTimeout((function() {
-              return _this.emit("queuecomplete");
-            }), 0);
-          }
-        };
-      })(this));
-      noPropagation = function(e) {
+      this.on(
+        "uploadprogress",
+        (function (_this) {
+          return function () {
+            return _this.updateTotalUploadProgress();
+          };
+        })(this)
+      );
+      this.on(
+        "removedfile",
+        (function (_this) {
+          return function () {
+            return _this.updateTotalUploadProgress();
+          };
+        })(this)
+      );
+      this.on(
+        "canceled",
+        (function (_this) {
+          return function (file) {
+            return _this.emit("complete", file);
+          };
+        })(this)
+      );
+      this.on(
+        "complete",
+        (function (_this) {
+          return function (file) {
+            if (
+              _this.getAddedFiles().length === 0 &&
+              _this.getUploadingFiles().length === 0 &&
+              _this.getQueuedFiles().length === 0
+            ) {
+              return setTimeout(function () {
+                return _this.emit("queuecomplete");
+              }, 0);
+            }
+          };
+        })(this)
+      );
+      noPropagation = function (e) {
         e.stopPropagation();
         if (e.preventDefault) {
           return e.preventDefault();
         } else {
-          return e.returnValue = false;
+          return (e.returnValue = false);
         }
       };
       this.listeners = [
         {
           element: this.element,
           events: {
-            "dragstart": (function(_this) {
-              return function(e) {
+            dragstart: (function (_this) {
+              return function (e) {
                 return _this.emit("dragstart", e);
               };
             })(this),
-            "dragenter": (function(_this) {
-              return function(e) {
+            dragenter: (function (_this) {
+              return function (e) {
                 noPropagation(e);
                 return _this.emit("dragenter", e);
               };
             })(this),
-            "dragover": (function(_this) {
-              return function(e) {
+            dragover: (function (_this) {
+              return function (e) {
                 var efct;
                 try {
                   efct = e.dataTransfer.effectAllowed;
                 } catch (_error) {}
-                e.dataTransfer.dropEffect = 'move' === efct || 'linkMove' === efct ? 'move' : 'copy';
+                e.dataTransfer.dropEffect =
+                  "move" === efct || "linkMove" === efct ? "move" : "copy";
                 noPropagation(e);
                 return _this.emit("dragover", e);
               };
             })(this),
-            "dragleave": (function(_this) {
-              return function(e) {
+            dragleave: (function (_this) {
+              return function (e) {
                 return _this.emit("dragleave", e);
               };
             })(this),
-            "drop": (function(_this) {
-              return function(e) {
+            drop: (function (_this) {
+              return function (e) {
                 noPropagation(e);
                 return _this.drop(e);
               };
             })(this),
-            "dragend": (function(_this) {
-              return function(e) {
+            dragend: (function (_this) {
+              return function (e) {
                 return _this.emit("dragend", e);
               };
-            })(this)
-          }
-        }
+            })(this),
+          },
+        },
       ];
-      this.clickableElements.forEach((function(_this) {
-        return function(clickableElement) {
-          return _this.listeners.push({
-            element: clickableElement,
-            events: {
-              "click": function(evt) {
-                if ((clickableElement !== _this.element) || (evt.target === _this.element || Dropzone.elementInside(evt.target, _this.element.querySelector(".dz-message")))) {
-                  _this.hiddenFileInput.click();
-                }
-                return true;
-              }
-            }
-          });
-        };
-      })(this));
+      this.clickableElements.forEach(
+        (function (_this) {
+          return function (clickableElement) {
+            return _this.listeners.push({
+              element: clickableElement,
+              events: {
+                click: function (evt) {
+                  if (
+                    clickableElement !== _this.element ||
+                    evt.target === _this.element ||
+                    Dropzone.elementInside(
+                      evt.target,
+                      _this.element.querySelector(".dz-message")
+                    )
+                  ) {
+                    _this.hiddenFileInput.click();
+                  }
+                  return true;
+                },
+              },
+            });
+          };
+        })(this)
+      );
       this.enable();
       return this.options.init.call(this);
     };
 
-    Dropzone.prototype.destroy = function() {
+    Dropzone.prototype.destroy = function () {
       var _ref;
       this.disable();
       this.removeAllFiles(true);
@@ -707,8 +873,15 @@
       return Dropzone.instances.splice(Dropzone.instances.indexOf(this), 1);
     };
 
-    Dropzone.prototype.updateTotalUploadProgress = function() {
-      var activeFiles, file, totalBytes, totalBytesSent, totalUploadProgress, _i, _len, _ref;
+    Dropzone.prototype.updateTotalUploadProgress = function () {
+      var activeFiles,
+        file,
+        totalBytes,
+        totalBytesSent,
+        totalUploadProgress,
+        _i,
+        _len,
+        _ref;
       totalBytesSent = 0;
       totalBytes = 0;
       activeFiles = this.getActiveFiles();
@@ -719,34 +892,54 @@
           totalBytesSent += file.upload.bytesSent;
           totalBytes += file.upload.total;
         }
-        totalUploadProgress = 100 * totalBytesSent / totalBytes;
+        totalUploadProgress = (100 * totalBytesSent) / totalBytes;
       } else {
         totalUploadProgress = 100;
       }
-      return this.emit("totaluploadprogress", totalUploadProgress, totalBytes, totalBytesSent);
+      return this.emit(
+        "totaluploadprogress",
+        totalUploadProgress,
+        totalBytes,
+        totalBytesSent
+      );
     };
 
-    Dropzone.prototype._getParamName = function(n) {
+    Dropzone.prototype._getParamName = function (n) {
       if (typeof this.options.paramName === "function") {
         return this.options.paramName(n);
       } else {
-        return "" + this.options.paramName + (this.options.uploadMultiple ? "[" + n + "]" : "");
+        return (
+          "" +
+          this.options.paramName +
+          (this.options.uploadMultiple ? "[" + n + "]" : "")
+        );
       }
     };
 
-    Dropzone.prototype.getFallbackForm = function() {
+    Dropzone.prototype.getFallbackForm = function () {
       var existingFallback, fields, fieldsString, form;
-      if (existingFallback = this.getExistingFallback()) {
+      if ((existingFallback = this.getExistingFallback())) {
         return existingFallback;
       }
-      fieldsString = "<div class=\"dz-fallback\">";
+      fieldsString = '<div class="dz-fallback">';
       if (this.options.dictFallbackText) {
         fieldsString += "<p>" + this.options.dictFallbackText + "</p>";
       }
-      fieldsString += "<input type=\"file\" name=\"" + (this._getParamName(0)) + "\" " + (this.options.uploadMultiple ? 'multiple="multiple"' : void 0) + " /><input type=\"submit\" value=\"Upload!\"></div>";
+      fieldsString +=
+        '<input type="file" name="' +
+        this._getParamName(0) +
+        '" ' +
+        (this.options.uploadMultiple ? 'multiple="multiple"' : void 0) +
+        ' /><input type="submit" value="Upload!"></div>';
       fields = Dropzone.createElement(fieldsString);
       if (this.element.tagName !== "FORM") {
-        form = Dropzone.createElement("<form action=\"" + this.options.url + "\" enctype=\"multipart/form-data\" method=\"" + this.options.method + "\"></form>");
+        form = Dropzone.createElement(
+          '<form action="' +
+            this.options.url +
+            '" enctype="multipart/form-data" method="' +
+            this.options.method +
+            '"></form>'
+        );
         form.appendChild(fields);
       } else {
         this.element.setAttribute("enctype", "multipart/form-data");
@@ -755,9 +948,9 @@
       return form != null ? form : fields;
     };
 
-    Dropzone.prototype.getExistingFallback = function() {
+    Dropzone.prototype.getExistingFallback = function () {
       var fallback, getFallback, tagName, _i, _len, _ref;
-      getFallback = function(elements) {
+      getFallback = function (elements) {
         var el, _i, _len;
         for (_i = 0, _len = elements.length; _i < _len; _i++) {
           el = elements[_i];
@@ -769,55 +962,73 @@
       _ref = ["div", "form"];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         tagName = _ref[_i];
-        if (fallback = getFallback(this.element.getElementsByTagName(tagName))) {
+        if (
+          (fallback = getFallback(this.element.getElementsByTagName(tagName)))
+        ) {
           return fallback;
         }
       }
     };
 
-    Dropzone.prototype.setupEventListeners = function() {
+    Dropzone.prototype.setupEventListeners = function () {
       var elementListeners, event, listener, _i, _len, _ref, _results;
       _ref = this.listeners;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         elementListeners = _ref[_i];
-        _results.push((function() {
-          var _ref1, _results1;
-          _ref1 = elementListeners.events;
-          _results1 = [];
-          for (event in _ref1) {
-            listener = _ref1[event];
-            _results1.push(elementListeners.element.addEventListener(event, listener, false));
-          }
-          return _results1;
-        })());
+        _results.push(
+          (function () {
+            var _ref1, _results1;
+            _ref1 = elementListeners.events;
+            _results1 = [];
+            for (event in _ref1) {
+              listener = _ref1[event];
+              _results1.push(
+                elementListeners.element.addEventListener(
+                  event,
+                  listener,
+                  false
+                )
+              );
+            }
+            return _results1;
+          })()
+        );
       }
       return _results;
     };
 
-    Dropzone.prototype.removeEventListeners = function() {
+    Dropzone.prototype.removeEventListeners = function () {
       var elementListeners, event, listener, _i, _len, _ref, _results;
       _ref = this.listeners;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         elementListeners = _ref[_i];
-        _results.push((function() {
-          var _ref1, _results1;
-          _ref1 = elementListeners.events;
-          _results1 = [];
-          for (event in _ref1) {
-            listener = _ref1[event];
-            _results1.push(elementListeners.element.removeEventListener(event, listener, false));
-          }
-          return _results1;
-        })());
+        _results.push(
+          (function () {
+            var _ref1, _results1;
+            _ref1 = elementListeners.events;
+            _results1 = [];
+            for (event in _ref1) {
+              listener = _ref1[event];
+              _results1.push(
+                elementListeners.element.removeEventListener(
+                  event,
+                  listener,
+                  false
+                )
+              );
+            }
+            return _results1;
+          })()
+        );
       }
       return _results;
     };
 
-    Dropzone.prototype.disable = function() {
+    Dropzone.prototype.disable = function () {
       var file, _i, _len, _ref, _results;
-      this.clickableElements.forEach(function(element) {
+      this.clickableElements.forEach(function (element) {
         return element.classList.remove("dz-clickable");
       });
       this.removeEventListeners();
@@ -830,19 +1041,19 @@
       return _results;
     };
 
-    Dropzone.prototype.enable = function() {
-      this.clickableElements.forEach(function(element) {
+    Dropzone.prototype.enable = function () {
+      this.clickableElements.forEach(function (element) {
         return element.classList.add("dz-clickable");
       });
       return this.setupEventListeners();
     };
 
-    Dropzone.prototype.filesize = function(size) {
+    Dropzone.prototype.filesize = function (size) {
       var cutoff, i, selectedSize, selectedUnit, unit, units, _i, _len;
       selectedSize = 0;
       selectedUnit = "b";
       if (size > 0) {
-        units = ['TB', 'GB', 'MB', 'KB', 'b'];
+        units = ["TB", "GB", "MB", "KB", "b"];
         for (i = _i = 0, _len = units.length; _i < _len; i = ++_i) {
           unit = units[i];
           cutoff = Math.pow(this.options.filesizeBase, 4 - i) / 10;
@@ -857,10 +1068,13 @@
       return "<strong>" + selectedSize + "</strong> " + selectedUnit;
     };
 
-    Dropzone.prototype._updateMaxFilesReachedClass = function() {
-      if ((this.options.maxFiles != null) && this.getAcceptedFiles().length >= this.options.maxFiles) {
+    Dropzone.prototype._updateMaxFilesReachedClass = function () {
+      if (
+        this.options.maxFiles != null &&
+        this.getAcceptedFiles().length >= this.options.maxFiles
+      ) {
         if (this.getAcceptedFiles().length === this.options.maxFiles) {
-          this.emit('maxfilesreached', this.files);
+          this.emit("maxfilesreached", this.files);
         }
         return this.element.classList.add("dz-max-files-reached");
       } else {
@@ -868,7 +1082,7 @@
       }
     };
 
-    Dropzone.prototype.drop = function(e) {
+    Dropzone.prototype.drop = function (e) {
       var files, items;
       if (!e.dataTransfer) {
         return;
@@ -878,7 +1092,7 @@
       this.emit("addedfiles", files);
       if (files.length) {
         items = e.dataTransfer.items;
-        if (items && items.length && (items[0].webkitGetAsEntry != null)) {
+        if (items && items.length && items[0].webkitGetAsEntry != null) {
           this._addFilesFromItems(items);
         } else {
           this.handleFiles(files);
@@ -886,9 +1100,15 @@
       }
     };
 
-    Dropzone.prototype.paste = function(e) {
+    Dropzone.prototype.paste = function (e) {
       var items, _ref;
-      if ((e != null ? (_ref = e.clipboardData) != null ? _ref.items : void 0 : void 0) == null) {
+      if (
+        (e != null
+          ? (_ref = e.clipboardData) != null
+            ? _ref.items
+            : void 0
+          : void 0) == null
+      ) {
         return;
       }
       this.emit("paste", e);
@@ -898,7 +1118,7 @@
       }
     };
 
-    Dropzone.prototype.handleFiles = function(files) {
+    Dropzone.prototype.handleFiles = function (files) {
       var file, _i, _len, _results;
       _results = [];
       for (_i = 0, _len = files.length; _i < _len; _i++) {
@@ -908,12 +1128,15 @@
       return _results;
     };
 
-    Dropzone.prototype._addFilesFromItems = function(items) {
+    Dropzone.prototype._addFilesFromItems = function (items) {
       var entry, item, _i, _len, _results;
       _results = [];
       for (_i = 0, _len = items.length; _i < _len; _i++) {
         item = items[_i];
-        if ((item.webkitGetAsEntry != null) && (entry = item.webkitGetAsEntry())) {
+        if (
+          item.webkitGetAsEntry != null &&
+          (entry = item.webkitGetAsEntry())
+        ) {
           if (entry.isFile) {
             _results.push(this.addFile(item.getAsFile()));
           } else if (entry.isDirectory) {
@@ -922,7 +1145,7 @@
             _results.push(void 0);
           }
         } else if (item.getAsFile != null) {
-          if ((item.kind == null) || item.kind === "file") {
+          if (item.kind == null || item.kind === "file") {
             _results.push(this.addFile(item.getAsFile()));
           } else {
             _results.push(void 0);
@@ -934,17 +1157,20 @@
       return _results;
     };
 
-    Dropzone.prototype._addFilesFromDirectory = function(directory, path) {
+    Dropzone.prototype._addFilesFromDirectory = function (directory, path) {
       var dirReader, entriesReader;
       dirReader = directory.createReader();
-      entriesReader = (function(_this) {
-        return function(entries) {
+      entriesReader = (function (_this) {
+        return function (entries) {
           var entry, _i, _len;
           for (_i = 0, _len = entries.length; _i < _len; _i++) {
             entry = entries[_i];
             if (entry.isFile) {
-              entry.file(function(file) {
-                if (_this.options.ignoreHiddenFiles && file.name.substring(0, 1) === '.') {
+              entry.file(function (file) {
+                if (
+                  _this.options.ignoreHiddenFiles &&
+                  file.name.substring(0, 1) === "."
+                ) {
                   return;
                 }
                 file.fullPath = "" + path + "/" + file.name;
@@ -956,51 +1182,70 @@
           }
         };
       })(this);
-      return dirReader.readEntries(entriesReader, function(error) {
-        return typeof console !== "undefined" && console !== null ? typeof console.log === "function" ? console.log(error) : void 0 : void 0;
+      return dirReader.readEntries(entriesReader, function (error) {
+        return typeof console !== "undefined" && console !== null
+          ? typeof console.log === "function"
+            ? console.log(error)
+            : void 0
+          : void 0;
       });
     };
 
-    Dropzone.prototype.accept = function(file, done) {
+    Dropzone.prototype.accept = function (file, done) {
       if (file.size > this.options.maxFilesize * 1024 * 1024) {
-        return done(this.options.dictFileTooBig.replace("{{filesize}}", Math.round(file.size / 1024 / 10.24) / 100).replace("{{maxFilesize}}", this.options.maxFilesize));
+        return done(
+          this.options.dictFileTooBig
+            .replace("{{filesize}}", Math.round(file.size / 1024 / 10.24) / 100)
+            .replace("{{maxFilesize}}", this.options.maxFilesize)
+        );
       } else if (!Dropzone.isValidFile(file, this.options.acceptedFiles)) {
         return done(this.options.dictInvalidFileType);
-      } else if ((this.options.maxFiles != null) && this.getAcceptedFiles().length >= this.options.maxFiles) {
-        done(this.options.dictMaxFilesExceeded.replace("{{maxFiles}}", this.options.maxFiles));
+      } else if (
+        this.options.maxFiles != null &&
+        this.getAcceptedFiles().length >= this.options.maxFiles
+      ) {
+        done(
+          this.options.dictMaxFilesExceeded.replace(
+            "{{maxFiles}}",
+            this.options.maxFiles
+          )
+        );
         return this.emit("maxfilesexceeded", file);
       } else {
         return this.options.accept.call(this, file, done);
       }
     };
 
-    Dropzone.prototype.addFile = function(file) {
+    Dropzone.prototype.addFile = function (file) {
       file.upload = {
         progress: 0,
         total: file.size,
-        bytesSent: 0
+        bytesSent: 0,
       };
       this.files.push(file);
       file.status = Dropzone.ADDED;
       this.emit("addedfile", file);
       this._enqueueThumbnail(file);
-      return this.accept(file, (function(_this) {
-        return function(error) {
-          if (error) {
-            file.accepted = false;
-            _this._errorProcessing([file], error);
-          } else {
-            file.accepted = true;
-            if (_this.options.autoQueue) {
-              _this.enqueueFile(file);
+      return this.accept(
+        file,
+        (function (_this) {
+          return function (error) {
+            if (error) {
+              file.accepted = false;
+              _this._errorProcessing([file], error);
+            } else {
+              file.accepted = true;
+              if (_this.options.autoQueue) {
+                _this.enqueueFile(file);
+              }
             }
-          }
-          return _this._updateMaxFilesReachedClass();
-        };
-      })(this));
+            return _this._updateMaxFilesReachedClass();
+          };
+        })(this)
+      );
     };
 
-    Dropzone.prototype.enqueueFiles = function(files) {
+    Dropzone.prototype.enqueueFiles = function (files) {
       var file, _i, _len;
       for (_i = 0, _len = files.length; _i < _len; _i++) {
         file = files[_i];
@@ -1009,18 +1254,23 @@
       return null;
     };
 
-    Dropzone.prototype.enqueueFile = function(file) {
+    Dropzone.prototype.enqueueFile = function (file) {
       if (file.status === Dropzone.ADDED && file.accepted === true) {
         file.status = Dropzone.QUEUED;
         if (this.options.autoProcessQueue) {
-          return setTimeout(((function(_this) {
-            return function() {
-              return _this.processQueue();
-            };
-          })(this)), 0);
+          return setTimeout(
+            (function (_this) {
+              return function () {
+                return _this.processQueue();
+              };
+            })(this),
+            0
+          );
         }
       } else {
-        throw new Error("This file can't be queued because it has already been processed or was rejected.");
+        throw new Error(
+          "This file can't be queued because it has already been processed or was rejected."
+        );
       }
     };
 
@@ -1028,31 +1278,41 @@
 
     Dropzone.prototype._processingThumbnail = false;
 
-    Dropzone.prototype._enqueueThumbnail = function(file) {
-      if (this.options.createImageThumbnails && file.type.match(/image.*/) && file.size <= this.options.maxThumbnailFilesize * 1024 * 1024) {
+    Dropzone.prototype._enqueueThumbnail = function (file) {
+      if (
+        this.options.createImageThumbnails &&
+        file.type.match(/image.*/) &&
+        file.size <= this.options.maxThumbnailFilesize * 1024 * 1024
+      ) {
         this._thumbnailQueue.push(file);
-        return setTimeout(((function(_this) {
-          return function() {
-            return _this._processThumbnailQueue();
-          };
-        })(this)), 0);
+        return setTimeout(
+          (function (_this) {
+            return function () {
+              return _this._processThumbnailQueue();
+            };
+          })(this),
+          0
+        );
       }
     };
 
-    Dropzone.prototype._processThumbnailQueue = function() {
+    Dropzone.prototype._processThumbnailQueue = function () {
       if (this._processingThumbnail || this._thumbnailQueue.length === 0) {
         return;
       }
       this._processingThumbnail = true;
-      return this.createThumbnail(this._thumbnailQueue.shift(), (function(_this) {
-        return function() {
-          _this._processingThumbnail = false;
-          return _this._processThumbnailQueue();
-        };
-      })(this));
+      return this.createThumbnail(
+        this._thumbnailQueue.shift(),
+        (function (_this) {
+          return function () {
+            _this._processingThumbnail = false;
+            return _this._processThumbnailQueue();
+          };
+        })(this)
+      );
     };
 
-    Dropzone.prototype.removeFile = function(file) {
+    Dropzone.prototype.removeFile = function (file) {
       if (file.status === Dropzone.UPLOADING) {
         this.cancelUpload(file);
       }
@@ -1063,7 +1323,7 @@
       }
     };
 
-    Dropzone.prototype.removeAllFiles = function(cancelIfNecessary) {
+    Dropzone.prototype.removeAllFiles = function (cancelIfNecessary) {
       var file, _i, _len, _ref;
       if (cancelIfNecessary == null) {
         cancelIfNecessary = false;
@@ -1078,11 +1338,11 @@
       return null;
     };
 
-    Dropzone.prototype.createThumbnail = function(file, callback) {
+    Dropzone.prototype.createThumbnail = function (file, callback) {
       var fileReader;
-      fileReader = new FileReader;
-      fileReader.onload = (function(_this) {
-        return function() {
+      fileReader = new FileReader();
+      fileReader.onload = (function (_this) {
+        return function () {
           if (file.type === "image/svg+xml") {
             _this.emit("thumbnail", file, fileReader.result);
             if (callback != null) {
@@ -1090,17 +1350,25 @@
             }
             return;
           }
-          return _this.createThumbnailFromUrl(file, fileReader.result, callback);
+          return _this.createThumbnailFromUrl(
+            file,
+            fileReader.result,
+            callback
+          );
         };
       })(this);
       return fileReader.readAsDataURL(file);
     };
 
-    Dropzone.prototype.createThumbnailFromUrl = function(file, imageUrl, callback) {
+    Dropzone.prototype.createThumbnailFromUrl = function (
+      file,
+      imageUrl,
+      callback
+    ) {
       var img;
       img = document.createElement("img");
-      img.onload = (function(_this) {
-        return function() {
+      img.onload = (function (_this) {
+        return function () {
           var canvas, ctx, resizeInfo, thumbnail, _ref, _ref1, _ref2, _ref3;
           file.width = img.width;
           file.height = img.height;
@@ -1115,7 +1383,18 @@
           ctx = canvas.getContext("2d");
           canvas.width = resizeInfo.trgWidth;
           canvas.height = resizeInfo.trgHeight;
-          drawImageIOSFix(ctx, img, (_ref = resizeInfo.srcX) != null ? _ref : 0, (_ref1 = resizeInfo.srcY) != null ? _ref1 : 0, resizeInfo.srcWidth, resizeInfo.srcHeight, (_ref2 = resizeInfo.trgX) != null ? _ref2 : 0, (_ref3 = resizeInfo.trgY) != null ? _ref3 : 0, resizeInfo.trgWidth, resizeInfo.trgHeight);
+          drawImageIOSFix(
+            ctx,
+            img,
+            (_ref = resizeInfo.srcX) != null ? _ref : 0,
+            (_ref1 = resizeInfo.srcY) != null ? _ref1 : 0,
+            resizeInfo.srcWidth,
+            resizeInfo.srcHeight,
+            (_ref2 = resizeInfo.trgX) != null ? _ref2 : 0,
+            (_ref3 = resizeInfo.trgY) != null ? _ref3 : 0,
+            resizeInfo.trgWidth,
+            resizeInfo.trgHeight
+          );
           thumbnail = canvas.toDataURL("image/png");
           _this.emit("thumbnail", file, thumbnail);
           if (callback != null) {
@@ -1126,10 +1405,10 @@
       if (callback != null) {
         img.onerror = callback;
       }
-      return img.src = imageUrl;
+      return (img.src = imageUrl);
     };
 
-    Dropzone.prototype.processQueue = function() {
+    Dropzone.prototype.processQueue = function () {
       var i, parallelUploads, processingLength, queuedFiles;
       parallelUploads = this.options.parallelUploads;
       processingLength = this.getUploadingFiles().length;
@@ -1142,7 +1421,9 @@
         return;
       }
       if (this.options.uploadMultiple) {
-        return this.processFiles(queuedFiles.slice(0, parallelUploads - processingLength));
+        return this.processFiles(
+          queuedFiles.slice(0, parallelUploads - processingLength)
+        );
       } else {
         while (i < parallelUploads) {
           if (!queuedFiles.length) {
@@ -1154,11 +1435,11 @@
       }
     };
 
-    Dropzone.prototype.processFile = function(file) {
+    Dropzone.prototype.processFile = function (file) {
       return this.processFiles([file]);
     };
 
-    Dropzone.prototype.processFiles = function(files) {
+    Dropzone.prototype.processFiles = function (files) {
       var file, _i, _len;
       for (_i = 0, _len = files.length; _i < _len; _i++) {
         file = files[_i];
@@ -1172,9 +1453,9 @@
       return this.uploadFiles(files);
     };
 
-    Dropzone.prototype._getFilesWithXhr = function(xhr) {
+    Dropzone.prototype._getFilesWithXhr = function (xhr) {
       var file, files;
-      return files = (function() {
+      return (files = function () {
         var _i, _len, _ref, _results;
         _ref = this.files;
         _results = [];
@@ -1185,10 +1466,10 @@
           }
         }
         return _results;
-      }).call(this);
+      }.call(this));
     };
 
-    Dropzone.prototype.cancelUpload = function(file) {
+    Dropzone.prototype.cancelUpload = function (file) {
       var groupedFile, groupedFiles, _i, _j, _len, _len1, _ref;
       if (file.status === Dropzone.UPLOADING) {
         groupedFiles = this._getFilesWithXhr(file.xhr);
@@ -1204,7 +1485,10 @@
         if (this.options.uploadMultiple) {
           this.emit("canceledmultiple", groupedFiles);
         }
-      } else if ((_ref = file.status) === Dropzone.ADDED || _ref === Dropzone.QUEUED) {
+      } else if (
+        (_ref = file.status) === Dropzone.ADDED ||
+        _ref === Dropzone.QUEUED
+      ) {
         file.status = Dropzone.CANCELED;
         this.emit("canceled", file);
         if (this.options.uploadMultiple) {
@@ -1216,21 +1500,55 @@
       }
     };
 
-    resolveOption = function() {
+    resolveOption = function () {
       var args, option;
-      option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-      if (typeof option === 'function') {
+      (option = arguments[0]),
+        (args = 2 <= arguments.length ? __slice.call(arguments, 1) : []);
+      if (typeof option === "function") {
         return option.apply(this, args);
       }
       return option;
     };
 
-    Dropzone.prototype.uploadFile = function(file) {
+    Dropzone.prototype.uploadFile = function (file) {
       return this.uploadFiles([file]);
     };
 
-    Dropzone.prototype.uploadFiles = function(files) {
-      var file, formData, handleError, headerName, headerValue, headers, i, input, inputName, inputType, key, method, option, progressObj, response, updateProgress, url, value, xhr, _i, _j, _k, _l, _len, _len1, _len2, _len3, _m, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
+    Dropzone.prototype.uploadFiles = function (files) {
+      var file,
+        formData,
+        handleError,
+        headerName,
+        headerValue,
+        headers,
+        i,
+        input,
+        inputName,
+        inputType,
+        key,
+        method,
+        option,
+        progressObj,
+        response,
+        updateProgress,
+        url,
+        value,
+        xhr,
+        _i,
+        _j,
+        _k,
+        _l,
+        _len,
+        _len1,
+        _len2,
+        _len3,
+        _m,
+        _ref,
+        _ref1,
+        _ref2,
+        _ref3,
+        _ref4,
+        _ref5;
       xhr = new XMLHttpRequest();
       for (_i = 0, _len = files.length; _i < _len; _i++) {
         file = files[_i];
@@ -1241,28 +1559,46 @@
       xhr.open(method, url, true);
       xhr.withCredentials = !!this.options.withCredentials;
       response = null;
-      handleError = (function(_this) {
-        return function() {
+      handleError = (function (_this) {
+        return function () {
           var _j, _len1, _results;
           _results = [];
           for (_j = 0, _len1 = files.length; _j < _len1; _j++) {
             file = files[_j];
-            _results.push(_this._errorProcessing(files, response || _this.options.dictResponseError.replace("{{statusCode}}", xhr.status), xhr));
+            _results.push(
+              _this._errorProcessing(
+                files,
+                response ||
+                  _this.options.dictResponseError.replace(
+                    "{{statusCode}}",
+                    xhr.status
+                  ),
+                xhr
+              )
+            );
           }
           return _results;
         };
       })(this);
-      updateProgress = (function(_this) {
-        return function(e) {
-          var allFilesFinished, progress, _j, _k, _l, _len1, _len2, _len3, _results;
+      updateProgress = (function (_this) {
+        return function (e) {
+          var allFilesFinished,
+            progress,
+            _j,
+            _k,
+            _l,
+            _len1,
+            _len2,
+            _len3,
+            _results;
           if (e != null) {
-            progress = 100 * e.loaded / e.total;
+            progress = (100 * e.loaded) / e.total;
             for (_j = 0, _len1 = files.length; _j < _len1; _j++) {
               file = files[_j];
               file.upload = {
                 progress: progress,
                 total: e.total,
-                bytesSent: e.loaded
+                bytesSent: e.loaded,
               };
             }
           } else {
@@ -1270,7 +1606,12 @@
             progress = 100;
             for (_k = 0, _len2 = files.length; _k < _len2; _k++) {
               file = files[_k];
-              if (!(file.upload.progress === 100 && file.upload.bytesSent === file.upload.total)) {
+              if (
+                !(
+                  file.upload.progress === 100 &&
+                  file.upload.bytesSent === file.upload.total
+                )
+              ) {
                 allFilesFinished = false;
               }
               file.upload.progress = progress;
@@ -1283,13 +1624,20 @@
           _results = [];
           for (_l = 0, _len3 = files.length; _l < _len3; _l++) {
             file = files[_l];
-            _results.push(_this.emit("uploadprogress", file, progress, file.upload.bytesSent));
+            _results.push(
+              _this.emit(
+                "uploadprogress",
+                file,
+                progress,
+                file.upload.bytesSent
+              )
+            );
           }
           return _results;
         };
       })(this);
-      xhr.onload = (function(_this) {
-        return function(e) {
+      xhr.onload = (function (_this) {
+        return function (e) {
           var _ref;
           if (files[0].status === Dropzone.CANCELED) {
             return;
@@ -1298,7 +1646,10 @@
             return;
           }
           response = xhr.responseText;
-          if (xhr.getResponseHeader("content-type") && ~xhr.getResponseHeader("content-type").indexOf("application/json")) {
+          if (
+            xhr.getResponseHeader("content-type") &&
+            ~xhr.getResponseHeader("content-type").indexOf("application/json")
+          ) {
             try {
               response = JSON.parse(response);
             } catch (_error) {
@@ -1307,15 +1658,15 @@
             }
           }
           updateProgress();
-          if (!((200 <= (_ref = xhr.status) && _ref < 300))) {
+          if (!(200 <= (_ref = xhr.status) && _ref < 300)) {
             return handleError();
           } else {
             return _this._finished(files, response, e);
           }
         };
       })(this);
-      xhr.onerror = (function(_this) {
-        return function() {
+      xhr.onerror = (function (_this) {
+        return function () {
           if (files[0].status === Dropzone.CANCELED) {
             return;
           }
@@ -1325,9 +1676,9 @@
       progressObj = (_ref = xhr.upload) != null ? _ref : xhr;
       progressObj.onprogress = updateProgress;
       headers = {
-        "Accept": "application/json",
+        Accept: "application/json",
         "Cache-Control": "no-cache",
-        "X-Requested-With": "XMLHttpRequest"
+        "X-Requested-With": "XMLHttpRequest",
       };
       if (this.options.headers) {
         extend(headers, this.options.headers);
@@ -1354,7 +1705,9 @@
         this.emit("sendingmultiple", files, xhr, formData);
       }
       if (this.element.tagName === "FORM") {
-        _ref2 = this.element.querySelectorAll("input, textarea, select, button");
+        _ref2 = this.element.querySelectorAll(
+          "input, textarea, select, button"
+        );
         for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
           input = _ref2[_k];
           inputName = input.getAttribute("name");
@@ -1367,22 +1720,31 @@
                 formData.append(inputName, option.value);
               }
             }
-          } else if (!inputType || ((_ref4 = inputType.toLowerCase()) !== "checkbox" && _ref4 !== "radio") || input.checked) {
+          } else if (
+            !inputType ||
+            ((_ref4 = inputType.toLowerCase()) !== "checkbox" &&
+              _ref4 !== "radio") ||
+            input.checked
+          ) {
             formData.append(inputName, input.value);
           }
         }
       }
-      for (i = _m = 0, _ref5 = files.length - 1; 0 <= _ref5 ? _m <= _ref5 : _m >= _ref5; i = 0 <= _ref5 ? ++_m : --_m) {
+      for (
+        i = _m = 0, _ref5 = files.length - 1;
+        0 <= _ref5 ? _m <= _ref5 : _m >= _ref5;
+        i = 0 <= _ref5 ? ++_m : --_m
+      ) {
         formData.append(this._getParamName(i), files[i], files[i].name);
       }
       return this.submitRequest(xhr, formData, files);
     };
 
-    Dropzone.prototype.submitRequest = function(xhr, formData, files) {
+    Dropzone.prototype.submitRequest = function (xhr, formData, files) {
       return xhr.send(formData);
     };
 
-    Dropzone.prototype._finished = function(files, responseText, e) {
+    Dropzone.prototype._finished = function (files, responseText, e) {
       var file, _i, _len;
       for (_i = 0, _len = files.length; _i < _len; _i++) {
         file = files[_i];
@@ -1399,7 +1761,7 @@
       }
     };
 
-    Dropzone.prototype._errorProcessing = function(files, message, xhr) {
+    Dropzone.prototype._errorProcessing = function (files, message, xhr) {
       var file, _i, _len;
       for (_i = 0, _len = files.length; _i < _len; _i++) {
         file = files[_i];
@@ -1417,14 +1779,13 @@
     };
 
     return Dropzone;
-
   })(Emitter);
 
   Dropzone.version = "4.1.0";
 
   Dropzone.options = {};
 
-  Dropzone.optionsForElement = function(element) {
+  Dropzone.optionsForElement = function (element) {
     if (element.getAttribute("id")) {
       return Dropzone.options[camelize(element.getAttribute("id"))];
     } else {
@@ -1434,25 +1795,27 @@
 
   Dropzone.instances = [];
 
-  Dropzone.forElement = function(element) {
+  Dropzone.forElement = function (element) {
     if (typeof element === "string") {
       element = document.querySelector(element);
     }
     if ((element != null ? element.dropzone : void 0) == null) {
-      throw new Error("No Dropzone found for given element. This is probably because you're trying to access it before Dropzone had the time to initialize. Use the `init` option to setup any additional observers on your Dropzone.");
+      throw new Error(
+        "No Dropzone found for given element. This is probably because you're trying to access it before Dropzone had the time to initialize. Use the `init` option to setup any additional observers on your Dropzone."
+      );
     }
     return element.dropzone;
   };
 
   Dropzone.autoDiscover = true;
 
-  Dropzone.discover = function() {
+  Dropzone.discover = function () {
     var checkElements, dropzone, dropzones, _i, _len, _results;
     if (document.querySelectorAll) {
       dropzones = document.querySelectorAll(".dropzone");
     } else {
       dropzones = [];
-      checkElements = function(elements) {
+      checkElements = function (elements) {
         var el, _i, _len, _results;
         _results = [];
         for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -1482,10 +1845,17 @@
 
   Dropzone.blacklistedBrowsers = [/opera.*Macintosh.*version\/12/i];
 
-  Dropzone.isBrowserSupported = function() {
+  Dropzone.isBrowserSupported = function () {
     var capableBrowser, regex, _i, _len, _ref;
     capableBrowser = true;
-    if (window.File && window.FileReader && window.FileList && window.Blob && window.FormData && document.querySelector) {
+    if (
+      window.File &&
+      window.FileReader &&
+      window.FileList &&
+      window.Blob &&
+      window.FormData &&
+      document.querySelector
+    ) {
       if (!("classList" in document.createElement("a"))) {
         capableBrowser = false;
       } else {
@@ -1504,7 +1874,7 @@
     return capableBrowser;
   };
 
-  without = function(list, rejectedItem) {
+  without = function (list, rejectedItem) {
     var item, _i, _len, _results;
     _results = [];
     for (_i = 0, _len = list.length; _i < _len; _i++) {
@@ -1516,24 +1886,24 @@
     return _results;
   };
 
-  camelize = function(str) {
-    return str.replace(/[\-_](\w)/g, function(match) {
+  camelize = function (str) {
+    return str.replace(/[\-_](\w)/g, function (match) {
       return match.charAt(1).toUpperCase();
     });
   };
 
-  Dropzone.createElement = function(string) {
+  Dropzone.createElement = function (string) {
     var div;
     div = document.createElement("div");
     div.innerHTML = string;
     return div.childNodes[0];
   };
 
-  Dropzone.elementInside = function(element, container) {
+  Dropzone.elementInside = function (element, container) {
     if (element === container) {
       return true;
     }
-    while (element = element.parentNode) {
+    while ((element = element.parentNode)) {
       if (element === container) {
         return true;
       }
@@ -1541,7 +1911,7 @@
     return false;
   };
 
-  Dropzone.getElement = function(el, name) {
+  Dropzone.getElement = function (el, name) {
     var element;
     if (typeof el === "string") {
       element = document.querySelector(el);
@@ -1549,12 +1919,16 @@
       element = el;
     }
     if (element == null) {
-      throw new Error("Invalid `" + name + "` option provided. Please provide a CSS selector or a plain HTML element.");
+      throw new Error(
+        "Invalid `" +
+          name +
+          "` option provided. Please provide a CSS selector or a plain HTML element."
+      );
     }
     return element;
   };
 
-  Dropzone.getElements = function(els, name) {
+  Dropzone.getElements = function (els, name) {
     var e, el, elements, _i, _j, _len, _len1, _ref;
     if (els instanceof Array) {
       elements = [];
@@ -1577,13 +1951,17 @@
     } else if (els.nodeType != null) {
       elements = [els];
     }
-    if (!((elements != null) && elements.length)) {
-      throw new Error("Invalid `" + name + "` option provided. Please provide a CSS selector, a plain HTML element or a list of those.");
+    if (!(elements != null && elements.length)) {
+      throw new Error(
+        "Invalid `" +
+          name +
+          "` option provided. Please provide a CSS selector, a plain HTML element or a list of those."
+      );
     }
     return elements;
   };
 
-  Dropzone.confirm = function(question, accepted, rejected) {
+  Dropzone.confirm = function (question, accepted, rejected) {
     if (window.confirm(question)) {
       return accepted();
     } else if (rejected != null) {
@@ -1591,7 +1969,7 @@
     }
   };
 
-  Dropzone.isValidFile = function(file, acceptedFiles) {
+  Dropzone.isValidFile = function (file, acceptedFiles) {
     var baseMimeType, mimeType, validType, _i, _len;
     if (!acceptedFiles) {
       return true;
@@ -1603,7 +1981,14 @@
       validType = acceptedFiles[_i];
       validType = validType.trim();
       if (validType.charAt(0) === ".") {
-        if (file.name.toLowerCase().indexOf(validType.toLowerCase(), file.name.length - validType.length) !== -1) {
+        if (
+          file.name
+            .toLowerCase()
+            .indexOf(
+              validType.toLowerCase(),
+              file.name.length - validType.length
+            ) !== -1
+        ) {
           return true;
         }
       } else if (/\/\*$/.test(validType)) {
@@ -1620,8 +2005,8 @@
   };
 
   if (typeof jQuery !== "undefined" && jQuery !== null) {
-    jQuery.fn.dropzone = function(options) {
-      return this.each(function() {
+    jQuery.fn.dropzone = function (options) {
+      return this.each(function () {
         return new Dropzone(this, options);
       });
     };
@@ -1649,7 +2034,6 @@
 
   Dropzone.SUCCESS = "success";
 
-
   /*
   
   Bugfix for iOS 6 and 7
@@ -1657,7 +2041,7 @@
   based on the work of https://github.com/stomita/ios-imagefile-megapixel
    */
 
-  detectVerticalSquash = function(img) {
+  detectVerticalSquash = function (img) {
     var alpha, canvas, ctx, data, ey, ih, iw, py, ratio, sy;
     iw = img.naturalWidth;
     ih = img.naturalHeight;
@@ -1687,12 +2071,11 @@
     }
   };
 
-  drawImageIOSFix = function(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
+  drawImageIOSFix = function (ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
     var vertSquashRatio;
     vertSquashRatio = detectVerticalSquash(img);
     return ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh / vertSquashRatio);
   };
-
 
   /*
    * contentloaded.js
@@ -1708,16 +2091,16 @@
    * http://javascript.nwbox.com/ContentLoaded/MIT-LICENSE
    */
 
-  contentLoaded = function(win, fn) {
+  contentLoaded = function (win, fn) {
     var add, doc, done, init, poll, pre, rem, root, top;
     done = false;
     top = true;
     doc = win.document;
     root = doc.documentElement;
-    add = (doc.addEventListener ? "addEventListener" : "attachEvent");
-    rem = (doc.addEventListener ? "removeEventListener" : "detachEvent");
-    pre = (doc.addEventListener ? "" : "on");
-    init = function(e) {
+    add = doc.addEventListener ? "addEventListener" : "attachEvent";
+    rem = doc.addEventListener ? "removeEventListener" : "detachEvent";
+    pre = doc.addEventListener ? "" : "on";
+    init = function (e) {
       if (e.type === "readystatechange" && doc.readyState !== "complete") {
         return;
       }
@@ -1726,7 +2109,7 @@
         return fn.call(win, e.type || e);
       }
     };
-    poll = function() {
+    poll = function () {
       var e;
       try {
         root.doScroll("left");
@@ -1752,13 +2135,11 @@
     }
   };
 
-  Dropzone._autoDiscoverFunction = function() {
+  Dropzone._autoDiscoverFunction = function () {
     if (Dropzone.autoDiscover) {
       return Dropzone.discover();
     }
   };
 
   contentLoaded(window, Dropzone._autoDiscoverFunction);
-
-}).call(this);
-
+}.call(this));
