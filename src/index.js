@@ -29,8 +29,14 @@ function send() {
     // }
   })
     .then((response) => {
-      if (response.ok && response.json()) {
-        console.log(response);
+      if (response.ok) {
+        response.json().then((data) => {
+          // use data
+          console.log(data["token"]);
+          sessionStorage.setItem("token", data["token"]);
+          sessionStorage.setItem("username", user.value);
+        });
+        window.location.href = "upload-page.html";
       }
 
       if (response.status >= 100 && response.status < 200) {
