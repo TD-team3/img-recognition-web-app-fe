@@ -142,7 +142,7 @@
       headers: {
         "Cache-Control": "",
       },
-      parallelUploads: 10,
+      parallelUploads: 1,
       uploadMultiple: true,
       maxFilesize: 256,
       paramName: "photos",
@@ -184,6 +184,11 @@
       init: function () {
         var myDropzone = Dropzone.forElement(".dropzone");
 
+        this.on("addedfile", function (file) {
+          globFormData.append("photos", file);
+        });
+
+        console.log(myDropzone);
         /* 'submit-dropzone-btn' is the ID of the form submit button */
         document
           .getElementById("js-upload")
@@ -191,9 +196,17 @@
             e.preventDefault();
             e.stopPropagation();
             myDropzone.processQueue();
+            console.log("btn pressed");
           });
 
-        this.on("sendingmultiple", function (data, xhr, formData) {
+        this.on("sending", function (file, xhr, formData) {
+          // ad photo to form data
+          for (var pair of globFormData.entries()) {
+            formData.append(pair[0], pair[1]);
+          }
+
+          //qui va inserito username e token dal sess. storage
+
           formData.append(
             "data",
             '{"username":"' +
@@ -203,6 +216,9 @@
               '"}'
           );
         });
+
+        /* this.on("sendingmultiple", function(data, xhr, formData) {
+      });*/
 
         return noop;
       },
@@ -407,12 +423,7 @@
           );
         }
       },
-      error: function (file, message, response) {
-        console.log("errore");
-        console.log(response);
-        if (response.status >= 400 && response.status < 499) {
-          window.location.href = "index.html";
-        }
+      error: function (file, message) {
         var node, _i, _len, _ref, _results;
         if (file.previewElement) {
           file.previewElement.classList.add("dz-error");
@@ -459,23 +470,17 @@
       totaluploadprogress: noop,
       sending: noop,
       sendingmultiple: noop,
-      successmultiple: function (file, response) {
+      success: function (file, response) {
         let list = document.getElementById("js-modalResultContent");
-        console.log("qui");
-
-        try {
-          let j = JSON.parse(response);
-          Object.keys(j).map((key) => {
-            let value = j[key];
-            console.log("json:", key, value);
-            let output =
-              "<li><i>" + key + "</i> => <strong>" + value + "</strong></li>";
-            list.innerHTML += output;
-          });
-        } catch (e) {
-          console.error(e);
-          list.innerHTML = "Errore nella risposta";
-        }
+        let obj = JSON.parse(response);
+        JSON.parse(response, function (key, value) {
+          console.log(key, "=>", value);
+          let output = "<li>" + key + "=>" + value + "</li>";
+          return (list.innerHTML = output);
+        });
+        obj.forEach(function (o) {
+          list.innerHTML += "<li>" + o[0] + "=>" + o[1] + "</li>";
+        });
 
         document
           .getElementById("js-modalResult")
@@ -485,12 +490,12 @@
           return file.previewElement.classList.add("dz-success");
         }
       },
-      success: noop,
+      successmultiple: noop,
       canceled: function (file) {
         return this.emit("error", file, "Upload canceled.");
       },
       canceledmultiple: noop,
-      complete: function (file) {
+      complete: function (file, response) {
         if (file._removeLink) {
           file._removeLink.textContent = this.options.dictRemoveFile;
         }
