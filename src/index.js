@@ -78,7 +78,10 @@ function send() {
           sessionStorage.setItem("token", data["token"]);
           sessionStorage.setItem("username", user.value);
         });
-        window.location.href = "upload-page.html";
+        $("#js-modalSuccess").classList.add("c-modal--open");
+        setTimeout(function () {
+          window.location.href = "upload-page.html";
+        }, 1400);
       }
 
       if (response.status >= 100 && response.status < 200) {
