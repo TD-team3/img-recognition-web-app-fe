@@ -10,7 +10,7 @@ Discovering the work behind every app we use every day.
 This web-app allow the user to upload a local image or a photo, after this the images will be elaborated.
 The result will be the content inside the image.
 
-## Tech/framework used
+## Tech/framework 
 * Frontend: 
   * leanguage: Html, Sass, JavaScript.
   * Bundler: Webpack
@@ -19,7 +19,7 @@ The result will be the content inside the image.
   * leanguage: Python.
   * Framework: Django.
  
-## Methodology and tools used?
+## Methodology and tools
 
 * We worked through the AGILE METHOD. For set the tasks we used the Github project.
 * We ran the retrospective session to learn from our mistake and ensure the group's performance on this project
