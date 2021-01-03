@@ -14,6 +14,12 @@
   display: block;
   margin-top: 1.4rem;
 }
+.dropzone .dz-preview.dz-image-preview {
+  background: none;
+}
+.dropzone .dz-preview .dz-remove {
+  color: var(--white);
+}
 
 @media only screen and (max-width: 375px) {
   .dropzone .dz-message {
