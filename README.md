@@ -2,7 +2,7 @@
 Image recognition web-app 
 
 ## Motivation
-This project born to learn how to work in a team. It's a great opportunity for learn something new and work with collaborators with Agile method.
+This project born to learn how to work as team. It's a great opportunity to learn something new and work with collaborators using Agile method.
 The purpose of this project is let work togheter frontends and backends beginners. 
 Discovering the work behind every app we use every day.
 
@@ -28,6 +28,18 @@ The result will be the content inside the image.
 * Jitsi for our calls
 * Slack for our chat asynchronus
 * A Excel sheet used for the daily stand-up asynchronus
+
+## Collaborators
+ * Frontend:
+   * Alan Sechi
+   * Pasquale Errico
+   * Jonathan Mauro Ferrara
+ 
+ * Backend:
+   * Andrea Orlando
+   * Aldo Telese
+   * Giacomo dell'omo
+   * Loredana Peterlician
 
 ## Deploy
 https://gracious-mcclintock-220460.netlify.app/
