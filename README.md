@@ -12,11 +12,11 @@ The result will be the content inside the image.
 
 ## Tech/framework 
 * Frontend: 
-  * leanguage: Html, Sass, JavaScript.
+  * Language: Html, Sass, JavaScript.
   * Bundler: Webpack
 
 * Backend: 
-  * leanguage: Python.
+  * Language: Python.
   * Framework: Django.
  
 ## Methodology and tools
