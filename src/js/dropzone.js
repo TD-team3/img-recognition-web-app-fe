@@ -1,3 +1,4 @@
+let image_count = 1;
 (function () {
   var Dropzone,
     Emitter,
@@ -155,7 +156,7 @@
       params: {},
       clickable: true,
       ignoreHiddenFiles: true,
-      acceptedFiles: ".png, .jpg",
+      acceptedFiles: "image/png, image/jpeg, image/jpg",
       acceptedMimeTypes: null,
       autoProcessQueue: false,
       autoQueue: true,
@@ -462,15 +463,15 @@
       successmultiple: function (file, response) {
         let list = document.getElementById("js-modalResultContent");
         console.log("qui");
-
         try {
           let j = JSON.parse(response);
           Object.keys(j).map((key) => {
             let value = j[key];
             console.log("json:", key, value);
             let output =
-              "<li><i>" + key + "</i> => <strong>" + value + "</strong></li>";
+              "<li><i>" + "Image: " + image_count + "</i> => <strong>" + value + "</strong></li>";
             list.innerHTML += output;
+            image_count += 1;
           });
         } catch (e) {
           console.error(e);

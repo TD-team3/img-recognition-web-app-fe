@@ -13,6 +13,12 @@
     width: 90%;
     text-align: center;
     margin-left: 1em;
+
+  }
+  &__title{
+    text-align: center;
+    width: 100%;
+    font-size: 2.5em;
   }
   &__item {
     margin-bottom: var(--spacing-x4);

@@ -1,4 +1,5 @@
 .c-button {
+  transition: all 0.3s linear;
   border-radius: var(--spacing-x2);
   padding: var(--spacing-x3);
   border: 0;
@@ -13,4 +14,9 @@
   &--success {
     background-color: var(--green);
   }
+  &:hover{
+    background-color: var(--green-dark);
+  }
 }
+
+
