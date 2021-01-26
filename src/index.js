@@ -102,3 +102,20 @@ function send() {
 
   console.log(asdf);
 }
+
+/************************************************RECOVERY PASSWORD */
+
+const recovery = $("#passwordRecovery");
+const subtitle = $("#subtitle")
+const title = $("#title")
+const passImg = $("#passImg")
+
+recovery.onclick = function () {
+  recovery.style.display = "none"
+  title.innerHTML = "Write your email";
+  pass.style.display = "none";
+  user.placeholder = "email address";
+  passImg.style.display = "none";
+  subtitle.innerHTML = "We will send an email to recover your password" ;
+  submit.innerHTML = "Continue &#8594;"
+};
