@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development",
+    "dev": "webpack-dev-server --config webpack.configDev.js",
     "start": "webpack serve --open Chrome.exe",
     "build": "webpack --mode production"
   },

@@ -1,25 +1,24 @@
-
 var $ = document.querySelector.bind(document);
 var $$ = document.querySelectorAll.bind(document);
 const user = $("#user");
 const pass = $("#pass");
 const submit = $("#submitButton");
-const registration = $("#registration")
+const registration = $("#registration");
 
 registration.addEventListener("click", function () {
-  window.location.href = "sign-in.html"
+  window.location.href = "sign-in.html";
 });
 
 if (typeof submit != "undefined" && submit != null) {
   submit.addEventListener("click", send);
 }
 
-if (window.location.href.indexOf("index") > -1) {
-} else {
-  if (!sessionStorage["user"] && !sessionStorage["token"]) {
-    window.location.href = "index.html";
-  }
-}
+// if (window.location.href.indexOf("index") > -1) {
+// } else {
+//   if (!sessionStorage["user"] && !sessionStorage["token"]) {
+//     window.location.href = "index.html";
+//   }
+// }
 
 function send() {
   event.preventDefault();
@@ -72,5 +71,3 @@ function send() {
 
   console.log(asdf);
 }
-
-
