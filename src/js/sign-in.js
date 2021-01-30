@@ -1,10 +1,11 @@
-
 var $ = document.querySelector.bind(document);
 var $$ = document.querySelectorAll.bind(document);
 
-let password = $("#password");
-let password_confirm = $("#password_confirm");
-let username = $('#username');
+const password = $("#password");
+const password_confirm = $("#password_confirm");
+const email = $('#email');
+const name = $("#name");
+const surname = $("#surname");
 
 function validatePassword() {
   if (password.value != password_confirm.value) {
@@ -21,14 +22,14 @@ function validatePassword() {
       event.preventDefault();
 
       // post body data
-      let form = { username: username.value, password: password.value };
+      let form = { mail: mail.value, name: name.value, surname: surname.value, password: password.value };
 
       let asdf = JSON.stringify(form);
 
       let formData = new FormData();
       formData.append("data", asdf);
       // pass request object to `fetch()`
-      fetch("URL", {
+      fetch("https://imgrecognitionteam3.pythonanywhere.com/signup/", {
         method: "POST",
         body: formData,
         // headers: {

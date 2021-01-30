@@ -56,17 +56,17 @@
           <class class="c-form__title">
             <p class="subtitle">Compile the module below to sign up!</p>
           </class>
-          <form id="form1">
+          <form id="form2">
             <div class="c-form__item">
               <div class="c-form__icon__container">
               </div>
               <label for="username"></label>
               <input
-                id="username"
-                type="username"
-                name="email"
+                id="mail"
+                type="email"
+                name="mail"
                 required="required"
-                placeholder="Username"
+                placeholder="Email"
               />
             </div>
             <div class="c-form__item">
@@ -156,11 +156,20 @@
               id="submit_sign_in"
               type="submit"
               class="c-button c-button--success"
-              form="form1"
+              form="form2"
               value="Submit2"
             >
               Sign up &#8594;
             </button>
+
+            <button
+            id="registration"
+            type="button"
+            class="c-button c-button--registration c-button--registration"
+            style="display: none;">
+              Not registered? Sign-up!
+            </button>
+
           </form>
         </div>
       </div>
