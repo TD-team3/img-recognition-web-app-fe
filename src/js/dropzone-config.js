@@ -19,4 +19,3 @@ Dropzone.options.myawesomedropzone = {
       },
       
 }
-alert("hello");

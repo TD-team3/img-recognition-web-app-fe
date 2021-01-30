@@ -1,6 +1,7 @@
 window.Dropzone = require("./js/dropzone");
 import "./styles.scss";
 
+
 var $ = document.querySelector.bind(document);
 var $$ = document.querySelectorAll.bind(document);
 const user = $("#user");
@@ -13,7 +14,7 @@ if (typeof submit != "undefined" && submit != null) {
 
 if (window.location.href.indexOf("index") > -1) {
 } else {
-  if (!sessionStorage["username"] && !sessionStorage["token"]) {
+  if (!sessionStorage["user"] && !sessionStorage["token"]) {
     window.location.href = "index.html";
   }
 }
@@ -34,7 +35,6 @@ Dropzone.options.dropzone = {
 
     submitButton.addEventListener("click", function () {
       myDropzone.processQueue();
-      alert("hello");
     });
 
     this.on("complete", function () {
@@ -52,7 +52,6 @@ Dropzone.options.dropzone = {
 
 function send() {
   event.preventDefault();
-
   // post body data
   let form = { username: user.value, password: pass.value };
 

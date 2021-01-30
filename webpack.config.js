@@ -72,6 +72,10 @@ module.exports = {
       filename: "upload-page.html",
       template: path.resolve(__dirname, "src", "upload-page.html"),
     }),
+    new HtmlWebpackPlugin({
+      filename: "sign-in.html",
+      template: path.resolve(__dirname, "src", "sign-in.html"),
+    }),
     new MiniCssExtractPlugin({
       filename: "style.css",
     }),

@@ -26,9 +26,7 @@
     display: flex;
   }
   &__icon__container {
-    width: 3em;
     height: 3em;
-    border-radius: 0.75em;
   }
   &__icon {
     padding: 1em;
@@ -36,7 +34,7 @@
   }
   &__item input {
     background: #1f3038;
-    border: none;
+    border:none;
     color: #ffffff;
     font-family: Source Sans Pro;
     font-size: 1em;
@@ -44,8 +42,11 @@
     position: relative;
     transition: border-color 0.3s;
     width: 100%;
-    border-bottom: 0.1em solid #1d2e35;
+    border-bottom: 0.1em solid white;
 
+    &::placeholder{
+      color: white;
+    }
     &:focus {
       border-bottom: 2px solid #c0c0c0;
       outline: none;
