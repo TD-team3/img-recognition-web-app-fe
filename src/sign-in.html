@@ -58,96 +58,82 @@
           </class>
           <form id="form2">
             <div class="c-form__item">
-              <div class="c-form__icon__container">
-              </div>
+              <div class="c-form__icon__container"></div>
               <label for="username"></label>
               <input
                 id="mail"
                 type="email"
                 name="mail"
-                required="required"
+                required
                 placeholder="Email"
               />
             </div>
             <div class="c-form__item">
-              <div class="c-form__icon__container">
-              </div>
+              <div class="c-form__icon__container"></div>
               <label for="password2"></label>
               <input
                 id="password"
                 type="password"
                 name="password"
-                required="required"
+                required
                 placeholder="******"
               />
             </div>
             <div class="c-form__item">
-              <div class="c-form__icon__container">
-              </div>
+              <div class="c-form__icon__container"></div>
               <label for="password confirm"></label>
               <input
                 id="password_confirm"
                 type="password"
                 name="confirm_password"
-                required="required"
+                required
                 placeholder="******"
               />
             </div>
             <div class="c-form__item">
-              <div class="c-form__icon__container">
-              </div>
+              <div class="c-form__icon__container"></div>
               <label for="name"></label>
               <input
                 id="name"
                 type="name"
                 name="name"
-                required="required"
+                required
                 placeholder="Name"
               />
             </div>
             <div class="c-form__item">
-              <div class="c-form__icon__container">
-              </div>
+              <div class="c-form__icon__container"></div>
               <label for="surname"></label>
               <input
                 id="surname"
                 type="surname"
                 name="surname"
-                required="required"
+                required
                 placeholder="Surname"
               />
             </div>
             <div class="c-form__item">
-              <div class="c-form__icon__container">
-              </div>
+              <div class="c-form__icon__container"></div>
               <label for="date"></label>
-              <input
-                id="date"
-                type="date"
-                name="date"
-                required="required"
-              />
+              <input id="date" type="date" name="date" required />
             </div>
             <div class="c-form__item">
-              <div class="c-form__icon__container">
-              </div>
+              <div class="c-form__icon__container"></div>
               <label for="gender"></label>
-              <input list ="gender" 
-                name="gender" 
-                required="required">
+              <input list="gender" name="gender" required />
               <datalist id="gender">
-                <option value="Male">
-                <option value="Female">
+                <option value="Male"></option>
+                <option value="Female"></option>
               </datalist>
             </div>
             <div class="c-form__item">
-              <div class="c-form__icon__container">
-              </div>
+              <div class="c-form__icon__container"></div>
               <label for="country"></label>
               <input
+              id="country"
                 type="text"
                 name="country"
-                required="required"
+                required
                 placeholder="Country"
               />
             </div>
@@ -163,27 +149,42 @@
             </button>
 
             <button
-            id="registration"
-            type="button"
-            class="c-button c-button--registration c-button--registration"
-            style="display: none;">
+              id="registration"
+              type="button"
+              class="c-button c-button--registration c-button--registration"
+              style="display: none"
+            >
               Not registered? Sign-up!
             </button>
-
           </form>
         </div>
       </div>
       <div
         class="c-modal c-modal--bottom c-modal--success text-center"
         id="js-modalSuccess"
-      >
-      </div>
+      ></div>
       <div
-      class="c-modal c-modal--bottom c-modal--success text-center"
-      id="js-modalRegistrationSuccess"
-    >
-      <div class="c-modal__content">Registrazione effettuata con successo verrai reindirizzato nella pagina di login...</div>
-    </div>
+        class="c-modal c-modal--bottom c-modal--success text-center"
+        id="js-modalRegistrationSuccess"
+      >
+        <div class="c-modal__content">
+          Registrazione effettuata con successo verrai reindirizzato nella
+          pagina di login...
+        </div>
+      </div>
+
+      <div class="c-modal c-modal--bottom c-modal--danger" id="js-registrationError">
+        <div class="c-modal__content">
+          L'email risulta gia registrata!
+        </div>
+      </div>
+
+      <div class="c-modal c-modal--bottom c-modal--danger" id="js-emptyError">
+        <div class="c-modal__content">
+          Compila tutti i campi!
+        </div>
+      </div>
+
     </section>
   </body>
 </html>
