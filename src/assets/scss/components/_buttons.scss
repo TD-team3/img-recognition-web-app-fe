@@ -14,6 +14,12 @@
   &--success {
     background-color: var(--green);
   }
+  &--recovery{
+    background-color: var(--grey-darker);
+  }
+  &--recovery:hover {
+    background-color: var(--grey-darker)!important;
+  }
   &:hover{
     background-color: var(--green-dark);
   }

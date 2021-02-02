@@ -53,16 +53,17 @@
     <section class="o-container">
       <div class="c-form">
         <div class="c-form__wrapper">
-          <h1 class="c-form__title">
+          <h1 id="title" class="c-form__title">
             Welcome in the <br />
             Image Recognition App <br />
             of the Team 3
           </h1>
-          <p class="subtitle">Sign in to continue</p>
+          <p id="subtitle" class="subtitle">Sign in to continue</p>
           <form id="form1">
             <div class="c-form__item">
               <div class="c-form__icon__container yellow">
                 <img
+                
                   class="c-form__icon"
                   src="./assets/images/usernameIcon.svg"
                   alt="username icon"
@@ -78,7 +79,7 @@
               />
             </div>
             <div class="c-form__item">
-              <div class="c-form__icon__container red">
+              <div id="passImg" class="c-form__icon__container red">
                 <img
                   class="c-form__icon"
                   src="./assets/images/passwordIcon.svg"
@@ -103,9 +104,18 @@
             >
               Sign in &#8594;
             </button>
+            <button
+            id="passwordRecovery"
+            type="button"
+            class="c-button c-button--recovery">
+              Hai dimenticato la password?
+            </button>
           </form>
         </div>
       </div>
+
+
+
       <div class="c-modal c-modal--bottom c-modal--danger" id="js-modalError">
         <div class="c-modal__content">
           I dati inseriti sono errati, rincontrollali!
