@@ -5,20 +5,18 @@ const pass = $("#pass");
 const submit = $("#submitButton");
 const registration = $("#registration");
 
-registration.addEventListener("click", function () {
-  window.location.href = "sign-in.html";
-});
+
 
 if (typeof submit != "undefined" && submit != null) {
   submit.addEventListener("click", send);
 }
 
-// if (window.location.href.indexOf("index") > -1) {
-// } else {
-//   if (!sessionStorage["user"] && !sessionStorage["token"]) {
-//     window.location.href = "index.html";
-//   }
-// }
+ if (window.location.href.indexOf("index") > -1) {
+ } else {
+  if (!sessionStorage["user"] && !sessionStorage["token"]) {
+    window.location.href = "index.html";
+ }
+ }
 
 function send() {
   event.preventDefault();

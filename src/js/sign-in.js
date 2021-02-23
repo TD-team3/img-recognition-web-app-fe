@@ -51,7 +51,7 @@ function verificationFields() {
     country != null
   ) {
   } else {
-    $("#js-emptyError").classList.add("c-modal--open");
+    $("#js-emptyError").classList.add("");
   }
   // post body data
 }
