@@ -5,18 +5,19 @@ const pass = $("#pass");
 const submit = $("#submitButton");
 const registration = $("#registration");
 
-
-
 if (typeof submit != "undefined" && submit != null) {
   submit.addEventListener("click", send);
 }
 
- if (window.location.href.indexOf("index") > -1) {
- } else {
+if (
+  window.location.href.indexOf("index") > -1 ||
+  window.location.href.indexOf("sign-in") > -1
+) {
+} else {
   if (!sessionStorage["user"] && !sessionStorage["token"]) {
     window.location.href = "index.html";
- }
- }
+  }
+}
 
 function send() {
   event.preventDefault();

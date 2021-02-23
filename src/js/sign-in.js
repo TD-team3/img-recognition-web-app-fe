@@ -56,10 +56,12 @@ function verificationFields() {
   // post body data
 }
 
-submitRegistration.onclick = function () {
-  event.preventDefault();
-  sendRegistration();
-};
+if (typeof submitRegistration != "undefined" && submitRegistration != null) {
+  submitRegistration.onclick = function () {
+    event.preventDefault();
+    sendRegistration();
+  };
+}
 
 function sendRegistration() {
   let form = {
