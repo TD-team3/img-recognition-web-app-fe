@@ -45,25 +45,27 @@
     />
   </head>
   <body>
-   <div class="logo__wrapper">
-    <figure class="o-logo">
-      <img src="./assets/images/logo.svg" alt="" />
-    </figure>
-    <div class="user__wrapper">
-      <div class="user__log-staatus">
-        <div class="user__name">Welcome User</div>
-        <div class= "user__arrow">&#748;</div>
+    <div class="c-header">
+      <figure class="o-logo">
+        <img src="./assets/images/logo.svg" alt="" />
+      </figure>
+      <div class="c-header__user-wrapper">
+        <div class="c-header__user-avatar"></div>
+        <div class="c-header__user-name">Welcome User</div>
+        <div class="c-header__user-arrow"></div>
       </div>
     </div>
-  </div>
     <section class="o-container">
       <div id="drop-area">
         <form class="my-form">
-          <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
-          <input type="file" id="fileElem" multiple accept="image/*">
+          <p>
+            Upload multiple files with the file dialog or by dragging and
+            dropping images onto the dashed region
+          </p>
+          <input type="file" id="fileElem" multiple accept="image/*" />
           <label class="button" for="fileElem">Select some files</label>
         </form>
-        <progress id="progress-bar" max=100 value=0></progress>
+        <progress id="progress-bar" max="100" value="0"></progress>
         <div id="gallery"></div>
       </div>
       <div

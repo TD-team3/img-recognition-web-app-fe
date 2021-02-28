@@ -46,9 +46,11 @@
   </head>
 
   <body>
-    <figure class="o-logo">
-      <img src="./assets/images/logo.svg" alt="" />
-    </figure>
+    <div class="c-header">
+      <figure class="o-logo">
+        <img src="./assets/images/logo.svg" alt="" />
+      </figure>
+    </div>
 
     <section class="o-container">
       <div class="c-form">
@@ -130,7 +132,7 @@
               <div class="c-form__icon__container"></div>
               <label for="country"></label>
               <input
-              id="country"
+                id="country"
                 type="text"
                 name="country"
                 required
@@ -173,18 +175,16 @@
         </div>
       </div>
 
-      <div class="c-modal c-modal--bottom c-modal--danger" id="js-registrationError">
-        <div class="c-modal__content">
-          L'email risulta gia registrata!
-        </div>
+      <div
+        class="c-modal c-modal--bottom c-modal--danger"
+        id="js-registrationError"
+      >
+        <div class="c-modal__content">L'email risulta gia registrata!</div>
       </div>
 
       <div class="c-modal c-modal--bottom c-modal--danger" id="js-emptyError">
-        <div class="c-modal__content">
-          Compila tutti i campi!
-        </div>
+        <div class="c-modal__content">Compila tutti i campi!</div>
       </div>
-
     </section>
   </body>
 </html>

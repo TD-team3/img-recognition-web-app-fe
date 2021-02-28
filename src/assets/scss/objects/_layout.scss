@@ -5,10 +5,9 @@
   align-items: center;
   max-width: 1280px;
   margin: 0 auto;
-  & h1{
-    
+  & h1 {
   }
-  & p{
+  & p {
     width: 100%;
     font-size: 1.2em;
   }
@@ -17,58 +16,4 @@
     max-width: 100%;
     margin-top: 100px;
   }
-}
-.o-logo {
-  position: absolute;
-  top: var(--spacing-x4);
-  padding: 0 var(--spacing-x4);
-  margin: 0;
-  width: 100%;
-  height: 200px;
-  & img{
-    width: 25%;
-    height: auto;
-    margin-left:auto;
-    margin-right: auto;
-  }
-  @media only screen and (min-width: 28.125em) {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-
-.user__wrapper{
-  display: flex;
-  justify-content: center;
-}
-.user__log-status{
-    position: absolute;
-    color: white;
-    background-image: url("https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png");
-    width: 2.825rem;
-    height: 2.825rem;
-    background-size: contain;
-    border: 0.125rem solid  var(--green-light);
-    border-radius: 50%;
-    right: 17.25rem;
-    top: var(--spacing-x4);
-    @media only screen and (min-width: 28.125em){
-
-    }
-}
-
-.user__arrow{
-  color: white;
-  font-size: 2rem;
-  position: relative;
-  left: 10.5rem;
-  top: -1.8rem;
-}
-
-.user__name {
-  position: relative;
-    left: 4rem;
-    width: 6.3rem;
-    /*background-color:red;*/
-    top: 0.80rem;
 }
