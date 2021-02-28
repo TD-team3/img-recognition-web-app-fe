@@ -56,7 +56,7 @@ function uploadFile(file, i) {
   // <- Add `i` parameter
   let url = "https://imgrecognitionteam3.pythonanywhere.com/upload_test/";
   let formData = new FormData();
-  formData.append("file", file);
+  formData.append("photos[0]", file);
   formData.append(
     "data",
     '{"username":"' +
