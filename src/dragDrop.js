@@ -1,6 +1,5 @@
 import "./styles.scss";
-import "./js/login";
-import "./js/sign-in";
+import "./js/dragDrop";
 
 // alert("funge");
 // let dropArea = document.getElementById('drop-area')

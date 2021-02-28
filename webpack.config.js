@@ -4,9 +4,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "development",
-  entry: "./src/index.js",
+  entry: {
+    login: ["./src/index.js"],
+    dragDrop: ["./src/dragDrop.js"],
+  },
   output: {
-    filename: "main.js",
+    filename: "[name].min.js",
     path: path.resolve(__dirname, "dist"),
     assetModuleFilename: "images/[name].[ext]",
   },
@@ -68,14 +71,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: path.resolve(__dirname, "src", "index.html"),
+      chunks: ["login"],
     }),
     new HtmlWebpackPlugin({
       filename: "upload-page.html",
       template: path.resolve(__dirname, "src", "upload-page.html"),
+      chunks: ["dragDrop"],
     }),
     new HtmlWebpackPlugin({
       filename: "sign-in.html",
       template: path.resolve(__dirname, "src", "sign-in.html"),
+      chunks: ["login"],
     }),
     new MiniCssExtractPlugin({
       filename: "style.css",
