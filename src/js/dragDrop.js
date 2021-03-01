@@ -1,6 +1,7 @@
 var $ = document.querySelector.bind(document);
 var $$ = document.querySelectorAll.bind(document);
 const fileElem = $("#fileElem");
+let image_count = 1;
 
 fileElem.onchange = function () {
   handleFiles(this.files);
@@ -70,7 +71,37 @@ function uploadFile(file, i) {
     method: "POST",
     body: formData,
   })
-    .then(progressDone) // <- Add `progressDone` call here
+    .then((response) => {
+      response.json().then((image) => {
+        let list = document.getElementById("js-modalResultContent");
+        console.log("qui");
+        try {
+          Object.keys(image).map((key) => {
+            let value = image[key];
+            console.log("json:", key, value);
+            let output =
+              "<li><i>" +
+              "Image: " +
+              image_count +
+              "</i> => <strong>" +
+              value +
+              "</strong></li>";
+            list.innerHTML += output;
+            image_count += 1;
+          });
+        } catch (e) {
+          console.error(e);
+          list.innerHTML = "Errore nella risposta";
+        }
+
+        document
+          .getElementById("js-modalResult")
+          .classList.add("c-modal--open");
+      });
+    })
+    .then(() => {
+      progressDone();
+    }) // <- Add `progressDone` call here
     .catch((error) => {
       console.error("Error:", error);
     });
@@ -80,8 +111,8 @@ function previewFile(file) {
   let reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onloadend = function () {
-    let img = document.createElement("img");
-    img.src = reader.result;
+    let img = document.createElement("div");
+    img.style.backgroundImage = "url('" + reader.result + "')";
     document.getElementById("gallery").appendChild(img);
   };
 }

@@ -5,11 +5,12 @@ body {
 #drop-area {
   border: 0.125rem dashed #25c685;
   border-radius: 1.25rem;
-  width: 30rem;
   font-family: sans-serif;
-  margin: 6.25rem auto;
-  padding: 1.25rem;
+  margin: 0 2rem;
+  padding: 1.25rem 1.25rem 3rem 1.25rem;
   color: #f2f2f2;
+  position: relative;
+  overflow: hidden;
 }
 #drop-area.highlight {
   border-color: purple;
@@ -23,10 +24,13 @@ p {
 #gallery {
   margin-top: 0.625rem;
 }
-#gallery img {
-  width: 9.375rem;
-  margin-bottom: 0.625rem;
-  margin-right: 0.625rem;
+#gallery div {
+  border-radius: 1rem;
+  margin: 0.5rem;
+  float: left;
+  width: 8rem;
+  height: 8rem;
+  background-size: cover;
   vertical-align: middle;
 }
 .button {
@@ -44,4 +48,28 @@ p {
 }
 #fileElem {
   display: none;
+}
+
+.progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  appearance: none;
+  &::-webkit-progress-value {
+    background: var(--grey-dark);
+  }
+
+  &::-moz-progress-bar {
+    background: var(--grey-light);
+  }
+
+  &::-webkit-progress-value {
+    background: var(--grey-light);
+  }
+
+  &::-webkit-progress-bar {
+    background: var(--grey-dark);
+  }
 }
