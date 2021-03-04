@@ -32,11 +32,10 @@ Trumps ------ Helpers and overrides.
 @import "./objects/layout";
 @import "./objects/lists";
 
-@import "./vendor/dropzone";
-
 @import "./components/buttons";
 @import "./components/forms";
 @import "./components/modals";
 @import "./components/dropzone";
+@import "./components/header";
 
 @import "./trumps/utilities";

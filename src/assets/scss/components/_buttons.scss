@@ -14,11 +14,11 @@
   &--success {
     background-color: var(--green);
   }
-  &--recovery{
+  &--registration {
     background-color: var(--grey-darker);
   }
-  &--recovery:hover {
-    background-color: var(--grey-darker)!important;
+  &--registration:hover {
+    background-color: var(--grey-dark)!important;
   }
   &:hover{
     background-color: var(--green-dark);
