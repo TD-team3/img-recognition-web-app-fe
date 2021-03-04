@@ -44,29 +44,34 @@
       href="https://gracious-mcclintock-220460.netlify.app/"
     />
   </head>
-  <body id="root">
-    <figure class="o-logo">
-      <img src="./assets/images/logo.svg" alt="" />
-    </figure>
+  <body>
+    <div class="c-header">
+      <figure class="o-logo">
+        <img src="./assets/images/logo.svg" alt="" />
+      </figure>
+      <div class="c-header__user-wrapper">
+        <div class="c-header__user-avatar"></div>
+        <div class="c-header__user-name">Welcome User</div>
+        <div class="c-header__user-arrow"></div>
+      </div>
+    </div>
     <section class="o-container">
-      <div class="c-form c-form--upload">
-        <div class="c-form__wrapper">
-          <h1>Upload your photos!</h1>
-          <form
-            action="https://imgrecognitionteam3.pythonanywhere.com/upload/"
-            class="dropzone"
-            id="myawesomedropzone"
-            enctype="multipart/form-data"
-          ></form>
-          <button
-            type="submit"
-            class="c-button c-button--success"
-            id="js-upload"
-          >
-            Upload
-          </button>
-          <p class="text-white text-center">No more than 10 images allowed</p>
-        </div>
+      <div id="drop-area">
+        <form class="my-form">
+          <p>
+            Upload multiple files with the file dialog or by dragging and
+            dropping images onto the dashed region
+          </p>
+          <input type="file" id="fileElem" multiple accept="image/*" />
+          <label class="button" for="fileElem">Select some files</label>
+        </form>
+        <progress
+          id="progress-bar"
+          class="progress"
+          max="100"
+          value="0"
+        ></progress>
+        <div id="gallery"></div>
       </div>
       <div
         class="c-modal c-modal--bottom c-modal--success text-center"
