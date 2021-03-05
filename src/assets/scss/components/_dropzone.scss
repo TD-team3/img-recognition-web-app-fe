@@ -11,13 +11,17 @@ body {
   color: #f2f2f2;
   position: relative;
   overflow: hidden;
+  top: 2rem;
+  @media only screen and (max-width: 28.125em) {
+    margin-top: 8rem;
+  }
 }
 #drop-area.highlight {
   border-color: purple;
 }
-p {
-  margin-top: 0;
-}
+// p {
+//   margin-top: 0;
+// }
 .my-form {
   margin-bottom: 0.625rem;
 }
