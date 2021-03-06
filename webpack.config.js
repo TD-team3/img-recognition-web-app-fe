@@ -3,9 +3,15 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: "./src/index.js",
+  mode: "development",
+  entry: {
+    login: ["./src/index.js"],
+    dragDrop: ["./src/dragDrop.js"],
+    passwordRecovery: ["./src/passwordRecovery.js"]
+  
+  },
   output: {
-    filename: "main.js",
+    filename: "[name].min.js",
     path: path.resolve(__dirname, "dist"),
     assetModuleFilename: "images/[name].[ext]",
   },
@@ -67,10 +73,22 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: path.resolve(__dirname, "src", "index.html"),
+      chunks: ["login"],
     }),
     new HtmlWebpackPlugin({
       filename: "upload-page.html",
       template: path.resolve(__dirname, "src", "upload-page.html"),
+      chunks: ["dragDrop"],
+    }),
+    new HtmlWebpackPlugin({
+      filename: "sign-in.html",
+      template: path.resolve(__dirname, "src", "sign-in.html"),
+      chunks: ["login"],
+    }),
+    new HtmlWebpackPlugin({
+      filename: "recovery-password.html",
+      template: path.resolve(__dirname, "src", "recovery-password.html"),
+      chunks: ["passwordRecovery"],
     }),
     new MiniCssExtractPlugin({
       filename: "style.css",

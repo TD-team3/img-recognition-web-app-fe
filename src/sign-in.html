@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image recognition web-app</title>
+
+    <meta
+      name="author"
+      content="Team 3 Front-End: Mauro Jonathan Ferrara | Pasquale Errico | Alan Sechi  Back-End: Aldo  Telese | Andrea Orlando | Giacomo Dell'omo | Loredana Peterlicean"
+    />
+    <link rel="icon" href="" type="image/icon type" />
+    <meta name="”robots”" content="index, follow" />
+    <meta property="og:image" content="ht" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="images recognition team3 api rest" />
+    <meta
+      name="description"
+      content="Do you want to recognize an object in your photo? Here we have the app that does exactly what you're looking for."
+    />
+    <meta property="og:locale" content="en" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Image recognition web app" />
+    <meta
+      property="og:description"
+      content="Do you want to recognize an object in your photo? Here we have the app that does exactly what you're looking for."
+    />
+    <meta
+      property="og:url"
+      content="https://gracious-mcclintock-220460.netlify.app/"
+    />
+    <meta property="og:image" content="ht" />
+    <meta property="og: site_name" content="Image recognition web app" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:description"
+      content="Do you want to recognize an object in your photo? Here we have the app that does exactly what you're looking for."
+    />
+    <meta name="twitter:title" content="Image recognition web app" />
+    <meta name="twitter:image" content="ht" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="canonical"
+      href="https://gracious-mcclintock-220460.netlify.app/"
+    />
+  </head>
+
+  <body>
+    <div class="c-header">
+      <figure class="o-logo">
+        <img src="./assets/images/logo.svg" alt="" />
+      </figure>
+    </div>
+
+    <section class="o-container">
+      <div class="c-form">
+        <div class="c-form__wrapper">
+          <class class="c-form__title">
+            <p class="subtitle">Compile the module below to sign up!</p>
+          </class>
+          <form id="form2">
+            <div class="c-form__item">
+              <div class="c-form__icon__container"></div>
+              <label for="username"></label>
+              <input
+                id="mail"
+                type="email"
+                name="mail"
+                required
+                placeholder="Email"
+              />
+            </div>
+            <div class="c-form__item">
+              <div class="c-form__icon__container"></div>
+              <label for="password2"></label>
+              <input
+                id="password"
+                type="password"
+                name="password"
+                required
+                placeholder="******"
+              />
+            </div>
+            <div class="c-form__item">
+              <div class="c-form__icon__container"></div>
+              <label for="password confirm"></label>
+              <input
+                id="password_confirm"
+                type="password"
+                name="confirm_password"
+                required
+                placeholder="******"
+              />
+            </div>
+            <div class="c-form__item">
+              <div class="c-form__icon__container"></div>
+              <label for="name"></label>
+              <input
+                id="name"
+                type="name"
+                name="name"
+                required
+                placeholder="Name"
+              />
+            </div>
+            <div class="c-form__item">
+              <div class="c-form__icon__container"></div>
+              <label for="surname"></label>
+              <input
+                id="surname"
+                type="surname"
+                name="surname"
+                required
+                placeholder="Surname"
+              />
+            </div>
+            <div class="c-form__item">
+              <div class="c-form__icon__container"></div>
+              <label for="date"></label>
+              <input id="date" type="date" name="date" required />
+            </div>
+            <div class="c-form__item">
+              <div class="c-form__icon__container"></div>
+              <label for="gender"></label>
+              <input list="gender" name="gender" required />
+              <datalist id="gender">
+                <option value="Male"></option>
+                <option value="Female"></option>
+              </datalist>
+            </div>
+            <div class="c-form__item">
+              <div class="c-form__icon__container"></div>
+              <label for="country"></label>
+              <input
+                id="country"
+                type="text"
+                name="country"
+                required
+                placeholder="Country"
+              />
+            </div>
+
+            <button
+              id="submit_sign_in"
+              type="submit"
+              class="c-button c-button--success"
+              form="form2"
+              value="Submit2"
+            >
+              Sign up &#8594;
+            </button>
+
+            <button
+              id="registration"
+              type="button"
+              class="c-button c-button--registration c-button--registration"
+              style="display: none"
+            >
+              Not registered? Sign-up!
+            </button>
+          </form>
+        </div>
+      </div>
+      <div
+        class="c-modal c-modal--bottom c-modal--success text-center"
+        id="js-modalSuccess"
+      ></div>
+      <div
+        class="c-modal c-modal--bottom c-modal--success text-center"
+        id="js-modalRegistrationSuccess"
+      >
+        <div class="c-modal__content">
+          Registrazione effettuata con successo verrai reindirizzato nella
+          pagina di login...
+        </div>
+      </div>
+
+      <div
+        class="c-modal c-modal--bottom c-modal--danger"
+        id="js-registrationError"
+      >
+        <div class="c-modal__content">L'email risulta gia registrata!</div>
+      </div>
+
+      <div class="c-modal c-modal--bottom c-modal--danger" id="js-emptyError">
+        <div class="c-modal__content">Compila tutti i campi!</div>
+      </div>
+    </section>
+  </body>
+</html>

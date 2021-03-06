@@ -1,34 +1,75 @@
-.dropzone {
-  border: 2px dashed var(--green);
-  border-radius: 5px;
-  background: var(--green-darker);
-  margin-top: 0px;
-  margin-bottom: var(--spacing-x4);
+body {
+  text-align: center;
+  background: #1f3038;
 }
-.dropzone .dz-message {
-  font-weight: 400;
+#drop-area {
+  border: 0.125rem dashed #25c685;
+  border-radius: 1.25rem;
+  font-family: sans-serif;
+  margin: 0 2rem;
+  padding: 1.25rem 1.25rem 3rem 1.25rem;
+  color: #f2f2f2;
+  position: relative;
+  overflow: hidden;
 }
-.dropzone .dz-message .note {
-  font-size: 0.8em;
-  font-weight: 200;
-  display: block;
-  margin-top: 1.4rem;
+#drop-area.highlight {
+  border-color: purple;
 }
-.dropzone .dz-preview.dz-image-preview {
-  background: none;
+p {
+  margin-top: 0;
 }
-.dropzone .dz-preview .dz-remove {
-  color: var(--white);
+.my-form {
+  margin-bottom: 0.625rem;
+}
+#gallery {
+  margin-top: 0.625rem;
+}
+#gallery div {
+  border-radius: 1rem;
+  margin: 0.5rem;
+  float: left;
+  width: 8rem;
+  height: 8rem;
+  background-size: cover;
+  vertical-align: middle;
+}
+.button {
+  display: inline-block;
+  padding: 0.625rem;
+  background: #3dd598;
+  cursor: pointer;
+  border-radius: 0.313rem;
+  /*border: 1px solid #ccc;*/
+  color: black;
+}
+.button:hover {
+  background: #25c685;
+  color: #f2f2f2;
+}
+#fileElem {
+  display: none;
 }
 
-@media only screen and (max-width: 375px) {
-  .dropzone .dz-message {
-    font-weight: 400;
+.progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  appearance: none;
+  &::-webkit-progress-value {
+    background: var(--grey-dark);
   }
-  .dropzone .dz-message .note {
-    font-size: 0.8em;
-    font-weight: 200;
-    display: block;
-    margin-top: 1.4rem;
+
+  &::-moz-progress-bar {
+    background: var(--grey-light);
+  }
+
+  &::-webkit-progress-value {
+    background: var(--grey-light);
+  }
+
+  &::-webkit-progress-bar {
+    background: var(--grey-dark);
   }
 }
