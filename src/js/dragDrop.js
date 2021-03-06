@@ -81,7 +81,7 @@ function uploadFile(file, i) {
             console.log("json:", key, value);
             let output =
               "<li><i>" +
-              "Image: " +
+              "Image " +
               image_count +
               "</i> => <strong>" +
               value +
@@ -126,4 +126,41 @@ function initializeProgress(numfiles) {
 function progressDone() {
   filesDone++;
   progressBar.value = (filesDone / filesToDo) * 100;
+}
+
+
+/* HEADER */
+
+const user = document.getElementById("headerUsername")
+const logout = document.getElementById("logOut")
+
+user.innerHTML = "Welcome " + sessionStorage.getItem("username");
+
+var acc = document.getElementsByClassName("c-header__user-wrapper");
+
+for ( var i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+      // panel.style.animationName = "example";
+      // panel.style.animationDuration =  "0.5s";
+      // panel.style.animationDirection = "reverse";
+    } else {
+      panel.style.display = "block";
+      panel.style.animationName = "example";
+      panel.style.animationDuration =  "0.5s";
+      panel.style.animationDirection = "normal";
+    }
+  });
+}
+
+
+logout.onclick = function() {
+  sessionStorage.removeItem("username")
+  sessionStorage.removeItem("token")
+  setTimeout(function () {
+    window.location.href = "index.html";
+  }, 200);
 }
