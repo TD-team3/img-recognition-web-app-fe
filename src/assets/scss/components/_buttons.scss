@@ -20,6 +20,11 @@
   &--registration:hover {
     background-color: var(--grey-dark)!important;
   }
+  &--upload{
+    background-color: var(--green);
+    margin-top: var(--spacing-x2);
+    width: 30%;
+  }
   &:hover{
     background-color: var(--green-dark);
   }

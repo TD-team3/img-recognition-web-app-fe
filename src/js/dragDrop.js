@@ -55,7 +55,7 @@ function handleFiles(files) {
 
 function uploadFile(file, i) {
   // <- Add `i` parameter
-  let url = "https://imgrecognitionteam3.pythonanywhere.com/upload_test/";
+  let url = "https://imgrecognitionteam3.pythonanywhere.com/upload/";
   let formData = new FormData();
   formData.append("photos[0]", file);
   formData.append(
@@ -74,7 +74,7 @@ function uploadFile(file, i) {
     .then((response) => {
       response.json().then((image) => {
         let list = document.getElementById("js-modalResultContent");
-        console.log("qui");
+        -console.log("qui");
         try {
           Object.keys(image).map((key) => {
             let value = image[key];
@@ -133,6 +133,7 @@ function progressDone() {
 
 const user = document.getElementById("headerUsername")
 const logout = document.getElementById("logOut")
+const searches = document.getElementById("searches")
 
 user.innerHTML = "Welcome " + sessionStorage.getItem("username");
 
@@ -158,9 +159,94 @@ for ( var i = 0; i < acc.length; i++) {
 
 
 logout.onclick = function() {
-  sessionStorage.removeItem("username")
+   event.preventDefault();
+    // post body data
+    let formData = new FormData();
+    formData.append(
+      "data",
+      '{"username":"' +
+        sessionStorage.getItem("username") +
+        '","token":"' +
+        sessionStorage.getItem("token") +
+        '"}'
+    );
+  
+  
+  fetch("https://imgrecognitionteam3.pythonanywhere.com/logout/", {
+      method: "POST",
+      body: formData,
+      // headers: {
+      //     "Content-type": "application/json; charset=UTF-8",
+  
+      // }
+    })
+      .then((response) => {
+        if (response.ok) {
+          sessionStorage.removeItem("username")
   sessionStorage.removeItem("token")
   setTimeout(function () {
     window.location.href = "index.html";
   }, 200);
+        }
+  
+        if (response.status >= 100 && response.status < 200) {
+          console.log("Informazioni per il client");
+        }
+        if (response.status >= 300 && response.status < 399) {
+          console.log("Redirezione");
+        }
+        if (response.status >= 400 && response.status < 499) {
+          console.log("Richiesta errata");
+        }
+        if (response.status >= 500 && response.status < 599) {
+          console.log("Errore sul server");
+        }
+      })
+      .catch((err) => console.log(err));
+}
+
+searches.onclick = function() {
+  event.preventDefault();
+  // post body data
+  let formData = new FormData();
+  formData.append(
+    "data",
+    '{"username":"' +
+      sessionStorage.getItem("username") +
+      '","token":"' +
+      sessionStorage.getItem("token") +
+      '"}'
+  );
+
+
+fetch("https://imgrecognitionteam3.pythonanywhere.com/get_searches/", {
+    method: "POST",
+    body: formData,
+    // headers: {
+    //     "Content-type": "application/json; charset=UTF-8",
+
+    // }
+  })
+    .then((response) => {
+      if (response.ok) {
+        response.json().then((data) => {
+          // use data
+          console.log(data);
+        });
+      }
+
+      if (response.status >= 100 && response.status < 200) {
+        console.log("Informazioni per il client");
+      }
+      if (response.status >= 300 && response.status < 399) {
+        console.log("Redirezione");
+      }
+      if (response.status >= 400 && response.status < 499) {
+        console.log("Richiesta errata");
+      }
+      if (response.status >= 500 && response.status < 599) {
+        console.log("Errore sul server");
+      }
+    })
+    .catch((err) => console.log(err));
 }
