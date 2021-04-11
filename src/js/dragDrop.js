@@ -69,7 +69,7 @@ function uploadFile(file, i) {
 
   fetch(url, {
     method: "POST",
-    body: formData,
+    body: formData
   })
     .then((response) => {
       response.json().then((image) => {
