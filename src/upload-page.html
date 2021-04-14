@@ -47,7 +47,7 @@
   <body>
     <div class="c-header">
       <figure class="o-logo">
-        <img src="./assets/images/logo.svg" alt="" />
+        <a href="index.html"> <img src="./assets/images/logo.svg" alt="" /></a>
       </figure>
       <div class="c-header__user-wrapper">
         <div class="c-header__user-avatar"></div>
@@ -56,6 +56,7 @@
         
       </div><div class="c-header__panel">
           <p class="c-header__log-out" id="logOut">Log Out</p>
+          <p class="c-header__log-out" id="searches">Searches</p>
         </div>
     </div>
     <section class="o-container">
@@ -66,7 +67,7 @@
             dropping images onto the dashed region
           </p>
           <input type="file" id="fileElem" multiple accept="image/*" />
-          <label class="button" for="fileElem">Select some files</label>
+          <label class="button" for="fileElem"><img id="upload-icon" src="./assets/images/Upload_Icon.svg">Select some files</label>
         </form>
         <progress
           id="progress-bar"
@@ -82,6 +83,7 @@
       >
         <div class="c-modal__title">Results:</div>
         <div class="c-modal__content">
+          <div class="c-modal__close" id="modalClose">&#10006;</div>
           <ul class="o-list-unstyled" id="js-modalResultContent"></ul>
         </div>
       </div>

@@ -20,6 +20,15 @@
   &--registration:hover {
     background-color: var(--grey-dark)!important;
   }
+  &--upload{
+    background-color: var(--green);
+    margin-top: var(--spacing-x2);
+    width: 30%;
+    margin: 0 auto;
+    @media only screen and (max-width: 28.125em) {
+      width: 50%;
+    }
+  }
   &:hover{
     background-color: var(--green-dark);
   }

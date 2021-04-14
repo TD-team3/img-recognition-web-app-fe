@@ -13,7 +13,7 @@ body {
   overflow: hidden;
   top: 2rem;
   @media only screen and (max-width: 28.125em) {
-    margin-top: 8rem;
+    margin-top: 11rem;
   }
 }
 #drop-area.highlight {
@@ -23,7 +23,9 @@ body {
 //   margin-top: 0;
 // }
 .my-form {
-  margin-bottom: 0.625rem;
+  margin-top: 0.625rem;
+  display: flex;
+  flex-direction: column;
 }
 #gallery {
   margin-top: 0.625rem;
@@ -42,9 +44,15 @@ body {
   padding: 0.625rem;
   background: #3dd598;
   cursor: pointer;
-  border-radius: 0.313rem;
+  border-radius: 1rem;
+  margin: 0 auto;
   /*border: 1px solid #ccc;*/
+  width: 30%;
   color: black;
+  @media only screen and (max-width: 28.125em) {
+    width: 50%;
+    
+  }
 }
 .button:hover {
   background: #25c685;
@@ -52,6 +60,14 @@ body {
 }
 #fileElem {
   display: none;
+}
+
+#upload-icon {
+  margin: 0 auto;
+  width: 25%;
+  @media only screen and (max-width: 28.125em) {
+    width: 50%;
+  }
 }
 
 .progress {

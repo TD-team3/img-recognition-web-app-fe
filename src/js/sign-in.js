@@ -51,7 +51,7 @@ function verificationFields() {
     country != null
   ) {
   } else {
-    $("#js-emptyError").classList.add("");
+    $("#js-emptyError").classList.add("c-modal--open");
   }
   // post body data
 }
@@ -107,4 +107,19 @@ function sendRegistration() {
       }
     })
     .catch((err) => console.log(err));
+}
+
+
+const registrationModalClose = document.getElementById("registrationModalClose")
+
+registrationModalClose.onclick = function() {
+  $("#js-registrationError").classList.remove("c-modal--open")
+}
+
+
+
+const emptyFieldModalClose = document.getElementById("emptyFieldModalClose")
+
+emptyFieldModalClose.onclick = function() {
+  $("#js-emptyError").classList.remove("c-modal--open")
 }

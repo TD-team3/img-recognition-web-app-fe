@@ -18,6 +18,12 @@
       var(--spacing-x3);
     position: relative;
     bottom: calc(-1 * var(--spacing-x3));
+    cursor: pointer;
+  }
+  &__close {
+    right: 32px;
+    position: absolute;
+    top: 30px;
   }
 
   &--bottom {
@@ -31,6 +37,11 @@
   &--open {
     transform: none;
   }
+
+  &--close {
+    transform: translateY(80%);
+  }
+
   &--danger {
     .c-modal__title {
       background-color: var(--red);
