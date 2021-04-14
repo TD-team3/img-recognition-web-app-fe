@@ -74,7 +74,6 @@ function uploadFile(file, i) {
     .then((response) => {
       response.json().then((image) => {
         let list = document.getElementById("js-modalResultContent");
-        -console.log("qui");
         try {
           Object.keys(image).map((key) => {
             let value = image[key];
@@ -134,6 +133,7 @@ function progressDone() {
 const user = document.getElementById("headerUsername")
 const logout = document.getElementById("logOut")
 const searches = document.getElementById("searches")
+const modalClose = document.getElementById("modalClose")
 
 user.innerHTML = "Welcome " + sessionStorage.getItem("username");
 
@@ -145,9 +145,6 @@ for ( var i = 0; i < acc.length; i++) {
     var panel = this.nextElementSibling;
     if (panel.style.display === "block") {
       panel.style.display = "none";
-      // panel.style.animationName = "example";
-      // panel.style.animationDuration =  "0.5s";
-      // panel.style.animationDirection = "reverse";
     } else {
       panel.style.display = "block";
       panel.style.animationName = "example";
@@ -249,4 +246,8 @@ fetch("https://imgrecognitionteam3.pythonanywhere.com/get_searches/", {
       }
     })
     .catch((err) => console.log(err));
+}
+
+modalClose.onclick = function() {
+  $("#js-modalResult").classList.remove("c-modal--open")
 }
